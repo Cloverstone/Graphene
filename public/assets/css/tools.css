@@ -1,0 +1,193 @@
+
+fieldset{position:relative}
+fieldset.dupable:hover .remove,fieldset.dupable:hover .add{display:inline-block}
+fieldset .remove,fieldset .add{position:absolute;text-align:center;left:220px;width:30px;background:#ddd;line-height:30px;cursor:pointer;display:none;padding:7px 0px}
+fieldset .remove i,fieldset .add i{opacity:.6}
+fieldset .remove{left:250px;border-left:solid 1px #eee}
+fieldset .remove:hover,fieldset .add:hover{background:#aaa}
+fieldset .remove:hover i,fieldset .add:hover i{opacity:.9}
+
+
+#wait-container {position: absolute;width: 100%;z-index: 13000;top: 0px;}
+#wait-container div {position: absolute;width: 100%;text-align: center;margin: auto;height:0px;}
+#wait-container span {margin: auto;}
+
+#wait{display:inline-block;height:40px;width:100px;background:url("http://content.sandbox.cloversweet.com/img/pageloading.gif") no-repeat 50%;}
+
+#status-message-container {position: fixed;width: 100%;z-index: 14000;top: 10px;}
+#status-message-container div {position: absolute;width: 100%;text-align: center;margin: auto;height:0px;}
+#status-message {padding-right: 14px;}
+#status-message-container span {margin: auto;}
+
+
+.modal{position:fixed;top:0px;left:0px;right:0px;bottom:0px;z-index:100010;text-align: center;}
+.modal-background{position:fixed;top:0px;left:0px;right:0px;bottom:0px;background:#333;opacity:.5}
+.modal-container{margin:0px auto;display:inline-block;overflow:hidden;border-radius:5px;min-width:500px;border:solid 1px;text-align:left;background:#fff;
+position:relative;top:20px}
+.modal-title{
+  background-image: -moz-linear-gradient(top, #f8f8f8, #e8e8e8);
+  background-image: -ms-linear-gradient(top, #f8f8f8, #e8e8e8);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f8f8f8), to(#e8e8e8));
+  background-image: -webkit-linear-gradient(top,#f8f8f8, #e8e8e8);
+  background-image: -o-linear-gradient(top, #f8f8f8, #e8e8e8);
+  background-image: linear-gradient(top, #f8f8f8, #e8e8e8);
+  background-repeat: repeat-x;
+  height:40px;border-bottom:solid 1px #ddd;background-color:#eee;border-top-left-radius:5px;border-top-right-radius:5px;padding-left:10px;color:#666;
+line-height:40px;font-size:16px;}
+.modal-close{display:inline-block;position:absolute;top:6px;right:6px;width:26px;height: 26px;opacity: .4;
+background: url(/assets/img/png/glyphicons_192_circle_remove.png);cursor: pointer;}
+.modal-close:hover{opacity:.6}
+.modal-content{padding:20px;min-height:200px;overflow:hidden}
+.modal-bottom{height:40px;border-top:solid 1px #ddd;background-color:#eee;padding-left:10px;border-bottom-left-radius:5px;border-bottom-right-radius:5px;}
+.modal-bottom .btn{float:right;margin:4px 10px 0 0}
+
+
+/*.modal textarea{width:450px;height:100px}*/
+.modal textarea{height:75px}
+
+
+#img-selection img{cursor:pointer;opacity:.7}
+#img-selection img:hover{opacity:.95}
+#img-selection img.selected{background:#b0e0f8;opacity:1}
+
+
+.formitem.date{position:relative}
+
+/* calendar root element */
+#calroot {
+    /* place on top of other elements. set a higher value if nessessary */
+    z-index:100020;
+    margin-top:-1px;
+    width:198px;
+    padding:2px;
+    background-color:#fff;
+    font-size:11px;
+    border:1px solid #ccc;
+  
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+  
+    -moz-box-shadow: 0 0 15px #666;
+    -webkit-box-shadow: 0 0 15px #666;
+}
+/* head. contains title, prev/next month controls and possible month/year selectors */
+#calhead {
+    padding:2px 0;
+    height:22px;
+}
+
+#caltitle {
+    font-size:14px;
+    color:#0150D1;
+    float:left;
+    text-align:center;
+    width:155px;
+    line-height:20px;
+    text-shadow:0 1px 0 #ddd;
+}
+
+#calnext, #calprev {
+    display:block;
+    width:20px;
+    height:20px;
+    background:transparent url(/assets/img/prev.gif) no-repeat scroll center center;
+    float:left;
+    cursor:pointer;
+}
+    
+#calnext {
+    background-image:url(/assets/img/next.gif);
+    float:right;
+}
+#calprev.caldisabled, #calnext.caldisabled {
+    visibility:hidden;
+}
+
+/* year/month selector */
+#caltitle select {
+    font-size:10px;
+}
+
+/* names of the days */
+#caldays {
+    height:14px;
+    border-bottom:1px solid #ddd;
+}
+
+#caldays span {
+    display:block;
+    float:left;
+    width:28px;
+    text-align:center;
+}
+
+/* container for weeks */
+#calweeks {
+    background-color:#fff;
+    margin-top:4px;
+}
+
+/* single week */
+.calweek {
+    clear:left;
+    height:22px;
+}
+
+/* single day */
+.calweek a {
+    display:block;
+    float:left;
+    width:27px;
+    height:20px;
+    text-decoration:none;
+    font-size:11px;
+    margin-left:1px;
+    text-align:center;
+    line-height:20px;
+    color:#666;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+}
+
+/* different states */
+.calweek a:hover, .calfocus {
+    background-color:#ddd;
+}
+
+/* sunday */
+a.calsun {
+    color:red;
+}
+
+/* offmonth day */
+a.caloff {
+    color:#ccc;
+}
+
+a.caloff:hover {
+    background-color:rgb(245, 245, 250);
+}
+/* unselecteble day */
+a.caldisabled {
+    background-color:#efefef !important;
+    color:#ccc  !important;
+    cursor:default;
+}
+
+/* current day */
+#calcurrent {
+    background-color:#498CE2;
+    color:#fff;
+}
+
+/* today */
+#caltoday {
+    background-color:#333;
+    color:#fff;
+}
+
+
+.nodisplay{display:none}
+
+
+
