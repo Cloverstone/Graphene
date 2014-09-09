@@ -1,0 +1,263 @@
+
+
+
+
+/*.btn-themed{
+  background-color: #ff3863;
+  background-image: -moz-linear-gradient(top, #ff3863, #Ff053b);
+  background-image: -ms-linear-gradient(top, #ff3863, #Ff053b);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ff3863), to(#Ff053b));
+  background-image: -webkit-linear-gradient(top,#ff3863, #Ff053b);
+  background-image: -o-linear-gradient(top, #ff3863, #Ff053b);
+  background-image: linear-gradient(top, #ff3863, #Ff053b);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3863', endColorstr='#Ff053b', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+  zoom:1;  border-color: #Ff053b #Ff053b #4d0212;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+.btn-themed,.btn-themed:hover {  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);  color: #ffffff;}
+.btn-themed:active,.btn-themed.active {  color: rgba(255, 255, 255, 0.75);}
+
+.btn-themed:hover,.btn-themed:active,.btn-themed.active,.btn-themed.disabled,.btn-themed[disabled] {  background-color: #Ff053b;}
+.btn-themed:active,.btn-themed.active {
+  background-color: #004099 \9;
+  background-color: #500213 \9;
+}*/
+
+/*<link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>*/
+@import url(http://fonts.googleapis.com/css?family=Poiret+One);
+/*f3152b*/
+
+body{background:#fff;text-align: center;font-family: Helvetica, Arial, sans-serif;min-width:998px}
+
+
+#container{width:978px;padding:10px;margin:25px auto 25px;position:relative;background-color:#231f20;min-height:500px;_height:500px;text-align:left;
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;}
+
+#portrait{position:absolute;top:10px;left:0px;}
+#header > div{background:#fff;width:998px;position:relative;margin:auto;height:140px;}
+/*#header img{float:left;margin-left:20px;}*/
+/*#header img#logo{position:absolute;top:5px;left:20px}*/
+ #social{position:absolute;top:20px;right:0px}
+ #social img{margin:0px 0px 0px 10px;cursor:pointer;float:right;opacity:.87}
+ #social img:hover{opacity:.7;}
+h1,h2,h3,h4,h5,h6{color:#f3152b}
+/*
+#menu{position:absolute;bottom:0px;right:0px;font-family: 'Myriad Pro', 'Trebuchet MS', Arial, sans-serif;font-size: 16px;font-weight: bold;}
+#menu a{margin:0px 0px 0px 20px;color:#f3152b;text-decoration: none;}
+*/
+#spacer{height:80px;font-family: 'Poiret One', cursive;}
+#footer{display:none;background: url('/assets/img/blacknblue.png') no-repeat 50% 40%;height:40px;margin:-30px 0px -20px;}
+.trans{background-image:url("/assets/img/background.png");width:100%;height:100%;position:absolute;top:0px;left:0px;z-index:0;
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;}
+#content{position:relative;margin:15px;color:#f0f0f0;font-family: Myriad Pro, Trebuchet MS, Arial, Sans-Serif;font-size: 16px;}
+#content > div.title{display:none}
+#title{line-height:40px;background:#194d63 url("/assets/img/highlight.png") no-repeat 50% 0;position:absolute;top:-28px;right:50px;font-size:35px;font-weight:bold;color:#FFF;padding:0px 10px;font-family: Georgia, 'Times New Roman', Times, serif;border:solid 3px #333;
+  -webkit-border-radius:2px;
+  -moz-border-radius:2px;
+  border-radius:2px;}
+
+/*a{color:#176783}*/
+
+
+body{background:#fff url(http://images.colourbox.com/thumb_COLOURBOX3588286.jpg);min-width:880px}
+#content{color:#333;width:840px;}
+#container{background:#fff;box-shadow:#000 0px 0px 15px;
+  -webkit-border-radius:0px;
+  -moz-border-radius:0px;
+  border-radius:0px;}
+#header > div{background:#fff;width:840px;}
+#container{width:870px;}
+body{background-attachment: fixed;}
+
+
+
+#content{
+/*margin: 8px 0px 70px 160px;
+width: 800px;*/
+}
+#container{width:978px;}
+/*#menu{position:absolute;top:190px;left:10px;font-family: 'Myriad Pro', 'Trebuchet MS', Arial, sans-serif;font-size: 16px;font-weight: bold;}
+#menu a{margin:0px 0px 0px 20px;color:#f3152b;text-decoration: noned;display:block}*/
+h1,
+h4,
+h2,
+h3,
+a,
+a:hover,
+a:visited
+{color:#f3152b;}
+
+
+
+
+#menu{position:absolute;margin:0px;top:130px;left:0px;font-family: 'Myriad Pro', 'Trebuchet MS', Arial, sans-serif;font-size: 16px;font-weight: bold;list-style-type:none}
+#menu li{display:inline-block;padding:0px 0px;position:relative;top:-10px;line-height:30px}
+#menu a{margin:0px 0px 0px 0px;padding:0px 6px;color:#f3152b;text-decoration: none;display:block}
+#menu a{color:#fff;}
+
+[name=contact] #menu li[name=contact],
+[name=our_stuff] #menu li[name=our_stuff],
+[name=home] #menu li[name=home],
+[name=about] #menu li[name=about],
+[name=hibachi] #menu li[name=hibachi],
+[name=sushi] #menu li[name=sushi],
+[name=traditional] #menu li[name=traditional],
+[name=menu] #menu li[name=menu]
+{background:#f8f8f8;
+  -webkit-border-radius:3px;
+  -moz-border-radius:3px;
+  border-radius:3px;}
+[name=contact] #menu li[name=contact] a,
+[name=our_stuff] #menu li[name=our_stuff] a,
+[name=home] #menu li[name=home] a,
+[name=about] #menu li[name=about] a,
+[name=hibachi] #menu li[name=hibachi] a,
+[name=sushi] #menu li[name=sushi] a,
+[name=traditional] #menu li[name=traditional] a,
+[name=menu] #menu li[name=menu] a
+{color:#f3152b;}
+
+#menu li:hover{background:#f8f8f8;
+  -webkit-border-radius:3px;
+  -moz-border-radius:3px;
+  border-radius:3px;}
+#menu li:hover a{color:#f3152b;}
+
+/*#menu li.divider{width: 6px;height: 45px;background: url(http://www.ichibanhibachisteakhouse.com/images/menu_bar.jpg) no-repeat;display: inline-block;margin: 0 10px 0 10px;top:0px;"}*/
+#menu li.divider{width: 0px;height: 30px;padding:0px;border:solid;border-width:0px 1px;border-color:#000 #666 #666 #000;display: inline-block;margin: 0 10px 0 10px;top:0px;"}
+
+.menu-back{position:absolute;bottom:0px;right:0px;left:0px;height:40px;background:#333;  background-color: #555;
+  background-image: -moz-linear-gradient(top, #555, #222);
+  background-image: -ms-linear-gradient(top, #555, #222);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#555), to(#222));
+  background-image: -webkit-linear-gradient(top,#555, #222);
+  background-image: -o-linear-gradient(top, #555, #222);
+  background-image: linear-gradient(top, #555, #222);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#555', endColorstr='#222', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+  zoom:1;}
+
+/*menu*/
+/*Unique*/
+
+/*body{background:#41291d;color:#fff}
+#header{background:#220f05;border-bottom-color:#fff;border-top-color:#aa6600}
+#header{background:#220f05;border-bottom-color:#fff;border-top-color:#d26800}
+#body{
+background:#4d2f24;
+color:#fff;
+background:#d9beab;
+background:#fff;
+color:#220f05;
+}
+#footer{border-top-color:#aa6600}
+
+#footer .slogan,#footer .copyright{color:#fff;}
+#footer .copyright{color:#555;}
+
+*/
+a,a:hover,a:visited,h1,h2,h3,h4,h5{color:#220f05;}
+h1 b {color: #96c266;}
+h2 b {color: #444;}
+
+.menu-catagory{margin-bottom:20px;overflow:hidden}
+.menu-catagory > div{border-bottom:dotted 2px #df3500;margin:0px 0px 10px 0px;}
+.menu-catagory h3{color:#df3500;font-family: verdana, sans-serif !important;font-size: 16px;margin: 10px 0 0 0;
+font-weight: bold;padding:0px;line-height: 20px;}
+.menu-catagory p{font-family: verdana, sans-serif !important;color:#999;font-size: 11px;margin:0px}
+.menu-item .name,.menu-item .price{color:#686868;font-family: verdana, sans-serif;font-size: 11px;font-weight: bold;}
+.menu-item .price{float:right}
+.menu-item > div{border-top:#999 dotted thin;}
+
+.menu-item.top1 > div,.menu-item.top2 > div{border:0;}
+.menu-item.bottom1 > div,.menu-item.bottom0 > div{border-bottom:#999 dotted thin;}
+.menu-item.even{clear:right;}
+.menu-item.even > div{margin-left:10px;}
+.menu-item.odd{clear:left;}
+.menu-item.odd > div{margin-right:10px;}
+.menu-item p{
+color: #999;
+display: block;
+font-family: verdana, sans-serif;
+font-size: 11px;}
+/*body{background: #EEE;}
+#footer{border:0;background: #EEE;box-shadow: inset 0px 2px 5px #CCC;}
+*/
+#restaurant-header{border-bottom:#999 dotted thin;}
+
+.restaurant-name{
+color: #000;
+font-size: 20px;font-family: verdana, sans-serif;font-weight: bold;
+}
+.restaurant-address{
+color: #999;
+font-size: 12px;
+font-family: verdana, sans-serif;}
+
+.restaurant-phone{
+color: #666;
+display: block;
+font-size: 16px;
+font-weight: bold;
+font-family: verdana, sans-serif;
+}
+
+
+
+@media screen and (min-width:1000px) {
+#header > div,#footer > div,#container,body{min-width:960px}
+
+
+#menu{font-family: 'PT Sans', sans-serif !important;}
+/*menu*/
+/*#menu{position:absolute;top:0px;right:0px;top:0px;height:80px}
+#menu a{font-size: .9em;text-transform: uppercase;border-bottom:solid transparent 6px;color:#fff;text-decoration:none;display:block;padding:$
+#menu a.selected{border-color:#fff;}*/
+/*#menu a:hover{background:#;opacity:.9}*/
+/*#menu li{display:inline-block;}*/
+
+
+}
+@media screen and (max-width:999px) {
+#header > div,#footer > div,#container,body{width:100%;min-width:300px}
+.menu-item.bottom1 > div{border:0}
+.menu-item.bottom1 > div,.menu-item.top2 > div{border-top:#999 dotted thin;}
+#content{padding:0px 10px}
+#header{position:fixed;left:0px;right:0px;height:40px;}#menu a {line-height:40px}
+#restaurant-responive{height:40px}
+
+.width1{width:100% !important;}
+.width2{width:100% !important;}
+.width3{width:100% !important;}
+.width4{width:100% !important;}
+.width5{width:100% !important;}
+.width6{width:100% !important;}
+.width7{width:100% !important;}
+.width8{width:100% !important;}
+.width9{width:100% !important;}
+.width10{width:100% !important;}
+.width11{width:100% !important;}
+.width12{width:100% !important;}
+.width1_5{width:100% !important;}
+.width2_5{width:100% !important;}
+.width3_5{width:100% !important;}
+.width4_5{width:100% !important;}
+
+.menu-item.even > div,.menu-item.odd > div{margin:0px;}
+
+}
+
+
+
+
+
+
+

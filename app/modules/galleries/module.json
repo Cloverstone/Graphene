@@ -1,0 +1,7 @@
+{
+	"enabled": true,
+  "include": [
+    "controllers/GalleriesController.php",
+    "controllers/GalleryItemsController.php"
+	]
+}

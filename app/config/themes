@@ -1,0 +1,6 @@
+<?php
+return array(
+	array('name' 	=> 'Adams',
+				'folder' 	=> 'adams_theme'
+	)
+);

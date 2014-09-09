@@ -1,0 +1,18 @@
+<ul class="sidebar-menu" id="nav-accordion">
+	{{#items}}
+	<li class="menu-item sub-menu dcjq-parent-li">
+		<a {{^children}}href="#/{{url}}"{{/children}} class="dcjq-parent">
+			<i class="fa fa-{{ icon }}"></i>  
+			<span class="menu-item-parent">{{name}}</span>
+		</a>
+		{{#children}}<ul class="sub">
+			{{#sub-items}}
+			<li>
+				<a href="#/{{#url}}{{url}}{{/url}}{{^url}}{{name}}{{/url}}"><i class="fa fa-circle-o"></i> {{name}}</a>
+			</li>
+			{{/sub-items}}
+		</ul>
+		{{/children}}
+	</li>
+	{{/items}}
+</ul>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>FieldsOfPlay</title>
+		<meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<link rel='stylesheet' type='text/css' href='/assets/css/font-awesome.min.css'>
+<link rel='stylesheet' type='text/css' href='/assets/css/app.v2.css'>
+<link rel='stylesheet' type='text/css' href='/vendor/jHtmlArea-0.7.5.ExamplePlusSource/style/jHtmlArea.css'>
+		<!--[if lt IE 9]> <script src="/assets/js/ie/respond.min.js" cache="false"></script> <script src="/assets/js/ie/html5.js" cache="false"></script> <script src="/assets/js/ie/fix.js" cache="false"></script> <![endif]-->
+	</head>
+	<body>
+		<section class="hbox stretch">
+			<!-- .aside --> 
+			<aside class="bg-dark aside-md" id="nav">
+				<section class="vbox">
+					<header class="bg-black nav-bar"> <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#nav"> <i class="fa fa-bars"></i> </a> <a href="#" class="nav-brand" data-toggle="fullscreen">FieldsOfPlay</a> <a class="btn btn-link visible-xs" data-toggle="collapse" data-target=".navbar-collapse"> <i class="fa fa-comment-o"></i> </a> </header>
+					<section>
+						<div class="lt nav-user hidden-xs pos-rlt">
+							<div class="nav-avatar pos-rlt">
+								<a href="#" class="thumb-sm avatar animated rollIn" data-toggle="dropdown"> <img src="images/avatar.jpg" width='28px' height='28px' alt="" class=""> <span class="caret caret-white"></span> Adam Smallcomb</a> 
+								<ul class="dropdown-menu m-t-sm animated fadeInLeft">
+									<span class="arrow top"></span> 
+									<li> <a href="#">Settings</a> </li>
+									<li> <a href="profile.html">Profile</a> </li>
+									<li> <a href="#"> <span class="badge bg-danger pull-right">3</span> Notifications </a> </li>
+									<li class="divider"></li>
+									<li> <a href="docs.html">Help</a> </li>
+									<li> <a href="signin.html">Logout</a> </li>
+								</ul>
+								<div class="visible-xs m-t m-b">
+									<a href="#" class="h3">John.Smith</a> 
+									<p><i class="fa fa-map-marker"></i> London, UK</p>
+								</div>
+							</div>
+							<div class="nav-msg">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <b class="badge badge-white count-n">2</b> </a> 
+								<section class="dropdown-menu m-l-sm pull-left animated fadeInRight">
+									<div class="arrow left"></div>
+									<section class="panel bg-white">
+										<header class="panel-heading"> <strong>You have <span class="count-n">2</span> notifications</strong> </header>
+										<div class="list-group"> <a href="#" class="media list-group-item"> <span class="pull-left thumb-sm"> <!--img src="images/avatar.jpg" alt="John said" class="img-circle"--> </span> <span class="media-body block m-b-none"> Use awesome animate.css<br> <small class="text-muted">28 Aug 13</small> </span> </a> <a href="#" class="media list-group-item"> <span class="media-body block m-b-none"> 1.0 initial released<br> <small class="text-muted">27 Aug 13</small> </span> </a> </div>
+										<footer class="panel-footer text-sm"> <a href="#" class="pull-right"><i class="fa fa-cog"></i></a> <a href="#">See all the notifications</a> </footer>
+									</section>
+								</section>
+							</div>
+						</div>
+
+						<!-- nav --> 
+						<nav class="nav-primary hidden-xs">
+							<ul class="nav">
+	<li>
+		<a href="#/Dashboard">
+			<i class="fa fa-tachometer"></i> <span>Dashboard</span>
+		</a>
+	</li>
+	<li class="dropdown-submenu">
+		<a  class="dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-user"></i> <span>Contacts</span>
+		</a>
+		<ul class="dropdown-menu">
+			<li>
+				<a href="#/Lead Pool">Lead Pool</a>
+			</li>
+			<li>
+				<a href="#/Add A Contact">Add A Contact</a>
+			</li>
+			<li>
+				<a href="#/Contact Search">Contact Search</a>
+			</li>
+			<li>
+				<a href="#/Contact Notes">Contact Notes</a>
+			</li>
+		</ul>
+	</li>
+</ul>						</nav>
+						<!-- / nav --> 
+					</section>
+					<footer class="footer bg-gradient hidden-xs"> <a href="modal.lockme.html" data-toggle="ajaxModal" class="btn btn-sm btn-link m-r-n-xs pull-right"> <i class="fa fa-power-off"></i> </a> <a href="#nav" data-toggle="class:nav-vertical" class="btn btn-sm btn-link m-l-n-sm"> <i class="fa fa-bars"></i> </a> </footer>
+				</section>
+			</aside>
+			<!-- /.aside --> <!-- .vbox --> 
+			<section id="container">
+				<section class="vbox">
+					<header class="header bg-black navbar navbar-inverse">
+						<div class="collapse navbar-collapse pull-in">
+							<ul class="nav navbar-nav m-l-n">
+								<li class="active"><a href="#">Dashboard</a></li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a> 
+									<ul class="dropdown-menu">
+										<li><a href="#">Action</a></li>
+									</ul>
+								</li>
+							</ul>
+							<form class="navbar-form navbar-right m-t-sm" role="search">
+								<div class="form-group">
+									<div class="input-group input-s"> <input type="text" class="form-control input-sm no-border bg-dark" placeholder="Search"> <span class="input-group-btn"> <button type="submit" class="btn btn-sm btn-success btn-icon"><i class="fa fa-search"></i></button> </span> </div>
+								</div>
+							</form>
+						</div>
+					</header>
+					<section class="scrollable" id="content">
+						<!--header>
+							<div class="row b-b m-l-none m-r-none">
+								<div class="col-sm-4">
+									<h3 class="m-t m-b-none">Dashboard</h3>
+									<p class="block text-muted">Welcome to application</p>
+								</div>								
+								<div class="col-sm-8">
+								</div>
+							</div>
+						</header>
+						<section class="hbox">
+						</section-->
+
+<section class="hbox stretch" id="taskapp"> <aside> <section class="vbox"> <header class="header bg-light lter bg-gradient b-b"> <button class="btn btn-success btn-sm pull-right btn-icon" id="new-task"><i class="fa fa-plus"></i></button> <p>Tasks</p> </header> <section class="bg-light lter w-f"> <section class="hbox stretch"> <!-- .aside --> <aside> <section class="vbox"> <section class="scrollable wrapper"> <!-- task list --> <ul id="task-list" class="list-group list-group-sp"><li class="list-group-item hover active"> <div class="view" id="task-1"> <button class="destroy close hover-action">×</button> <div class="checkbox"> <input class="toggle" type="checkbox"> <span class="task-name">New task</span> <input class="edit form-control" type="text" value="New task"> </div> </div> </li></ul> <!-- templates --> <script type="text/template" id="item-template"> <div class="view" id="task-<%- id %>"> <button class="destroy close hover-action">&times;</button> <div class="checkbox"> <input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %> /> <span class="task-name"><%- (name && name.length) ? name : 'New task' %></span> <input class="edit form-control" type="text" value="<%- name %>" /> </div> </div> </script> <!-- / template --> <!-- task list --> </section> </section> </aside> <!-- /.aside --> </section> </section> <footer class="footer bg-white-only b-t"> <p class="checkbox"><label><input id="toggle-all" type="checkbox"> Mark all as complete</label></p> </footer> </section> </aside> <!-- .aside --> <aside class="col-lg-4 bg-white"> <section class="vbox flex b-l" id="task-detail"> <header class="header bg-light lt b-b"> <p class="m-b"> <span class="text-muted">Created:</span> Jan 24th, 7:55 pm </p> <div class="lter pull-in b-t m-t-xxs"> <textarea type="text" class="form-control form-control-trans scrollable" placeholder="Task description"></textarea> </div> </header> <section class="w-f"> <section> <section> <ul id="task-comment" class="list-group no-radius no-border m-t-n-xxs"><li class="list-group-item hover"> <div class="view"> <button class="destroy close hover-action">×</button> <div> <span>asdf</span> <small class="text-muted block text-xs"><i class="fa fa-clock-o"></i> 14 hours ago</small> </div> </div> </li><li class="list-group-item hover"> <div class="view"> <button class="destroy close hover-action">×</button> <div> <span>asdfasdf</span> <small class="text-muted block text-xs"><i class="fa fa-clock-o"></i> 14 hours ago</small> </div> </div> </li> </ul> </section> </section> </section> <footer class="footer bg-light lter clearfix b-t"> <div class="input-group m-t-sm"> <input type="text" class="form-control input-sm" id="task-c-input" placeholder="Type a comment"> <span class="input-group-btn"> <button class="btn btn-success btn-sm" type="button" id="task-c-btn"><i class="fa fa-pencil"></i></button> </span> </div> </footer> </section> </aside> <!-- /.aside --> </section>
+
+
+
+					</section>
+				</section>
+				<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a> 
+			</section>
+			<!-- /.vbox --> 
+		</section>
+		<!--script src="/assets/js/app.v2.js"></script--> <!-- Bootstrap --> <!-- Sparkline Chart --> <!-- App --> <!--script src="/assets/js/libs/jquery.pjax.js" cache="false"></script--> <!-- Sparkline Chart --> <!-- Easy Pie Chart --> <!-- Morris --> <!--script src="/assets/js/charts/morris/raphael-min.js" cache="false"></script> <script src="/assets/js/charts/morris/morris.min.js" cache="false"></script-->
+		<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
+<script type='text/javascript' src='/vendor/smartadmin/js/plugin/msie-fix/jquery.mb.browser.min.js'></script>
+<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js'></script>
+<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js'></script>
+<script type='text/javascript' src='/assets/js/icanhaz.min.js'></script>
+<script type='text/javascript' src='/assets/js/formal.js'></script>
+<script type='text/javascript' src='/assets/js/formal/validations.formal.js'></script>
+<script type='text/javascript' src='/assets/js/formal/backbone.formal.js'></script>
+<script type='text/javascript' src='/assets/js/formal/jquery.maskedInput.js'></script>
+<script type='text/javascript' src='/assets/js/formal/wizard.formal.js'></script>
+<script type='text/javascript' src='/assets/js/formal/text.formal.js'></script>
+<script type='text/javascript' src='/assets/js/formal/textarea.formal.js'></script>
+<script type='text/javascript' src='/vendor/jHtmlArea-0.7.5.ExamplePlusSource/scripts/jHtmlArea-0.7.5.js'></script>
+<script type='text/javascript' src='/assets/js/formal/displayText.formal.js'></script>
+<script type='text/javascript' src='/assets/js/formal/select.formal.js'></script>
+<script type='text/javascript' src='/assets/js/quicksilver.js'></script>
+<script type='text/javascript' src='/assets/js/routes.js'></script>
+<script type='text/javascript' src='/assets/js/app.js'></script>
+		<script id="company" type="text/html">
+<div class="row">
+	<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+		<h1 class="page-title txt-color-blueDark">
+			<i class="fa-fw fa fa-trophy"></i> 
+				Company
+			<span>&gt;  
+				Profile
+			</span>
+		</h1>
+	</div>
+</div>
+
+<div class="jarviswidget jarviswidget-color-blueLight" id="wid-id-12" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" data-widget-attstyle="jarviswidget-color-blueLight" role="widget" style="">
+	<header role="heading">
+		<ul class="nav nav-tabs pull-left in">
+
+			<li class="active">
+				<a data-toggle="tab" href="#offices_show"> <i class="fa fa-lg fa-building"></i> <span class="hidden-mobile hidden-tablet"> Office Locations </span> </a>
+			</li>
+
+		</ul>
+	<span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
+
+	<!-- widget div-->
+	<div role="content" style="min-height:250px">
+
+		<!-- widget edit box -->
+		<div class="jarviswidget-editbox">
+		</div>
+		<!-- end widget edit box -->
+
+		<!-- widget content -->
+		<div class="widget-body">
+			<div class="tab-content">
+				<div class="tab-pane active">
+					<div id="offices_show">
+						{{offices_show}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end widget content -->
+
+	</div>
+	<!-- end widget div -->
+
+</div></script>	</body>
+</html>
