@@ -30,36 +30,37 @@ galleryView = Backbone.View.extend({
 		//'click #dropt': 'addImage'
 	},
 	addImage: function() {
-		var options = {};
-		$('#myModal').remove();
-		options.body = '<form action="/images" method="post" class="dropzone clickable" id="image_filename"><input type="hidden" name="_method" value="post" /><div class="default message"><span>Drop files here to upload</span></div></form>';
-		options.icon = 'plus-circle';
-		options.title = 'Add Photo';
-		this.ref = $(ich.modal(options));
+		// var options = {};
+		// $('#myModal').remove();
+		// options.body = '<form action="/images" method="post" class="dropzone clickable" id="image_filename"><input type="hidden" name="_method" value="post" /><div class="default message"><span>Drop files here to upload</span></div></form>';
+		// options.icon = 'plus-circle';
+		// options.title = 'Add Photo';
+		// this.ref = $(ich.modal(options));
 
-		$(this.ref).appendTo('body');
+		// $(this.ref).appendTo('body');
 
-		this.ref.modal();
-		$('#agent_photo').append(options.body);
-		myDropzone = new Dropzone('#image_filename', {method: 'post', paramName: 'image_filename', success: function(message,response) {
-			var temp = new imageModel(response);
-			$('#myModal').modal('hide');
-			myImages.add(temp);
-			new imageView({'model': temp});
-		}});
+		// this.ref.modal();
+		// $('#agent_photo').append(options.body);
+		// myDropzone = new Dropzone('#image_filename', {method: 'post', paramName: 'image_filename', success: function(message,response) {
+		// 	var temp = new imageModel(response);
+		// 	$('#myModal').modal('hide');
+		// 	myImages.add(temp);
+		// 	new imageView({'model': temp});
+		// }});
 
+		$().berry({fields:[{type: 'upload', label: false, path: '/gallery_items?gallery_id='+this.model.id, name: 'image_filename'}]})
 	},
 	template: 'gallery_content' ,
 	onShow: function() {
 		_.each(myGalleryItems.models, function(model) {
 			new galleryItemView({'model': model});
 		});
-		myNewDropzone = new Dropzone('#image_filename', {parallelUploads: 10, method: 'post', paramName: 'image_filename', success: function(message,response) {
-			var temp = new galleryItemModel(response);
-			this.removeAllFiles();
-			myGalleryItems.add(temp);
-			new galleryItemView({'model': temp});
-		}});
+		// myNewDropzone = new Dropzone('#image_filename', {parallelUploads: 10, method: 'post', paramName: 'image_filename', success: function(message,response) {
+		// 	var temp = new galleryItemModel(response);
+		// 	this.removeAllFiles();
+		// 	myGalleryItems.add(temp);
+		// 	new galleryItemView({'model': temp});
+		// }});
 	},
 	initialize: function() {
 		this.setElement(ich[this.template](this.model.attributes));
@@ -80,10 +81,11 @@ galleryItemView = Backbone.View.extend({
 		this.form({legend: '<i class="fa fa-photo"></i> Edit Image', fields: ['Name']});
 	},
 	template: 'gallery_item_view',
-	target: '#gallery-list #dropt',
+	target: '#gallery-list',
 	initialize: function() {
-		this.autoElement({append: false});
-		$(this.target).before(this.$el);
+		// this.autoElement({append: false});
+		// $(this.target).before(this.$el);
+		this.autoElement();
 	}
 });
 

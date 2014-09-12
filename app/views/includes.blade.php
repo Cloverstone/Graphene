@@ -25,6 +25,7 @@
 	Assets::add('cobler/', '/views/');
 	Assets::add('cobler.js');
 	Assets::add('dropzone.js');
+	Assets::add('dropzone.css');
 	Assets::add('showdown.js');
 	//Assets::add('', '/assets/js/cobler/');
 	Assets::add('', '/assets/js/page/');
@@ -75,7 +76,6 @@
 	Assets::add('flatlab/css/style.css' , '/vendor/');
 	Assets::add('style-responsive.css' , '/vendor/flatlab/css/');
 	Assets::add('common-scripts.js' , '/vendor/flatlab/js/');
-	//Assets::add('dropbox.css' , '/vendor/flatlab/css/');
 	
 	Assets::add('', '/vendor/flatlab/js/');
 
