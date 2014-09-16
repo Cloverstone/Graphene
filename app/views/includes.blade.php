@@ -101,5 +101,3 @@
 	Assets::add('gallery.css' , '/vendor/flatlab/css/');
 	//Assets::add('restaruantCategories.js' , './resources/');
 //	Assets::add('resource/galleries.js');
-
-?>

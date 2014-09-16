@@ -4,6 +4,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Jenssegers\Mongodb\DatabaseManager as Resolver;
 use Jenssegers\Mongodb\Eloquent\Builder;
 use Jenssegers\Mongodb\Query\Builder as QueryBuilder;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Jenssegers\Mongodb\Relations\EmbedsOneOrMany;
 use Jenssegers\Mongodb\Relations\EmbedsMany;
 use Jenssegers\Mongodb\Relations\EmbedsOne;
 
@@ -29,6 +31,13 @@ abstract class Model extends \Jenssegers\Eloquent\Model {
     protected $primaryKey = '_id';
 
     /**
+     * The parent relation instance.
+     *
+     * @var Relation
+     */
+    protected $parentRelation;
+
+    /**
      * The connection resolver instance.
      *
      * @var \Illuminate\Database\ConnectionResolverInterface
@@ -38,15 +47,26 @@ abstract class Model extends \Jenssegers\Eloquent\Model {
     /**
      * Custom accessor for the model's id.
      *
-     * @return string
+     * @param mixed $value
+     *
+     * @return mixed
      */
     public function getIdAttribute($value)
     {
-        // If there is an actual id attribute, then return that.
-        if ($value) return $value;
+        // If we don't have a value for 'id', we will use the Mongo '_id' value.
+        // This allows us to work with models in a more sql-like way.
+        if ( ! $value and array_key_exists('_id', $this->attributes))
+        {
+            $value = $this->attributes['_id'];
+        }
 
-        // Return primary key value if present
-        if (array_key_exists($this->getKeyName(), $this->attributes)) return $this->attributes[$this->getKeyName()];
+        // Convert MongoId's to string.
+        if ($value instanceof MongoId)
+        {
+            return (string) $value;
+        }
+
+        return $value;
     }
 
     /**
@@ -70,7 +90,7 @@ abstract class Model extends \Jenssegers\Eloquent\Model {
 
         if (is_null($localKey))
         {
-            $localKey = '_' . $relation;
+            $localKey = $relation;
         }
 
         if (is_null($foreignKey))
@@ -106,7 +126,7 @@ abstract class Model extends \Jenssegers\Eloquent\Model {
 
         if (is_null($localKey))
         {
-            $localKey = '_' . $relation;
+            $localKey = $relation;
         }
 
         if (is_null($foreignKey))
@@ -201,16 +221,97 @@ abstract class Model extends \Jenssegers\Eloquent\Model {
      */
     public function getAttribute($key)
     {
-        $attribute = parent::getAttribute($key);
-
-        // If the attribute is a MongoId object, return it as a string.
-        // This is makes Eloquent relations a lot easier.
-        if ($attribute instanceof MongoId)
+        // Check if the key is an array dot notation.
+        if (str_contains($key, '.'))
         {
-            return (string) $attribute;
+            $attributes = array_dot($this->attributes);
+
+            if (array_key_exists($key, $attributes))
+            {
+                return $this->getAttributeValue($key);
+            }
         }
 
-        return $attribute;
+        $camelKey = camel_case($key);
+
+        // If the "attribute" exists as a method on the model, it may be an
+        // embedded model. If so, we need to return the result before it
+        // is handled by the parent method.
+        if (method_exists($this, $camelKey))
+        {
+            $relations = $this->$camelKey();
+
+            // This attribute matches an embedsOne or embedsMany relation so we need
+            // to return the relation results instead of the interal attributes.
+            if ($relations instanceof EmbedsOneOrMany)
+            {
+                // If the key already exists in the relationships array, it just means the
+                // relationship has already been loaded, so we'll just return it out of
+                // here because there is no need to query within the relations twice.
+                if (array_key_exists($key, $this->relations))
+                {
+                    return $this->relations[$key];
+                }
+
+                // Get the relation results.
+                return $this->getRelationshipFromMethod($key, $camelKey);
+            }
+        }
+
+        return parent::getAttribute($key);
+    }
+
+    /**
+     * Get an attribute from the $attributes array.
+     *
+     * @param  string  $key
+     * @return mixed
+     */
+    protected function getAttributeFromArray($key)
+    {
+        // Support keys in dot notation.
+        if (str_contains($key, '.'))
+        {
+            $attributes = array_dot($this->attributes);
+
+            if (array_key_exists($key, $attributes))
+            {
+                return $attributes[$key];
+            }
+        }
+
+        return parent::getAttributeFromArray($key);
+    }
+
+    /**
+     * Set a given attribute on the model.
+     *
+     * @param  string  $key
+     * @param  mixed   $value
+     * @return void
+     */
+    public function setAttribute($key, $value)
+    {
+        // Convert _id to MongoId.
+        if ($key == '_id' and is_string($value))
+        {
+            $builder = $this->newBaseQueryBuilder();
+
+            $value = $builder->convertKey($value);
+        }
+
+        // Support keys in dot notation.
+        elseif (str_contains($key, '.'))
+        {
+            if (in_array($key, $this->getDates()) && $value)
+            {
+                $value = $this->fromDateTime($value);
+            }
+
+            array_set($this->attributes, $key, $value); return;
+        }
+
+        parent::setAttribute($key, $value);
     }
 
     /**
@@ -226,7 +327,7 @@ abstract class Model extends \Jenssegers\Eloquent\Model {
         // MongoDB related objects to a string representation. This kind
         // of mimics the SQL behaviour so that dates are formatted
         // nicely when your models are converted to JSON.
-        foreach ($attributes as &$value)
+        foreach ($attributes as $key => &$value)
         {
             if ($value instanceof MongoId)
             {
@@ -245,7 +346,7 @@ abstract class Model extends \Jenssegers\Eloquent\Model {
      */
     public function drop($columns)
     {
-        if (!is_array($columns)) $columns = array($columns);
+        if ( ! is_array($columns)) $columns = array($columns);
 
         // Unset attributes
         foreach ($columns as $column)
@@ -266,9 +367,25 @@ abstract class Model extends \Jenssegers\Eloquent\Model {
     {
         if ($parameters = func_get_args())
         {
+            $unique = false;
+
+            if (count($parameters) == 3)
+            {
+                list($column, $values, $unique) = $parameters;
+            }
+            else
+            {
+                list($column, $values) = $parameters;
+            }
+
+            // Do batch push by default.
+            if ( ! is_array($values)) $values = array($values);
+
             $query = $this->setKeysForSaveQuery($this->newQuery());
 
-            return call_user_func_array(array($query, 'push'), $parameters);
+            $this->pushAttributeValues($column, $values, $unique);
+
+            return $query->push($column, $values, $unique);
         }
 
         return parent::push();
@@ -279,11 +396,87 @@ abstract class Model extends \Jenssegers\Eloquent\Model {
      *
      * @return mixed
      */
-    public function pull()
+    public function pull($column, $values)
     {
+        // Do batch pull by default.
+        if ( ! is_array($values)) $values = array($values);
+
         $query = $this->setKeysForSaveQuery($this->newQuery());
 
-        return call_user_func_array(array($query, 'pull'), func_get_args());
+        $this->pullAttributeValues($column, $values);
+
+        return $query->pull($column, $values);
+    }
+
+    /**
+     * Append one or more values to the underlying attribute value and sync with original.
+     *
+     * @param  string  $column
+     * @param  array   $values
+     * @param  bool    $unique
+     * @return void
+     */
+    protected function pushAttributeValues($column, array $values, $unique = false)
+    {
+        $current = $this->getAttributeFromArray($column) ?: array();
+
+        foreach ($values as $value)
+        {
+            // Don't add duplicate values when we only want unique values.
+            if ($unique and in_array($value, $current)) continue;
+
+            array_push($current, $value);
+        }
+
+        $this->attributes[$column] = $current;
+
+        $this->syncOriginalAttribute($column);
+    }
+
+    /**
+     * Rempove one or more values to the underlying attribute value and sync with original.
+     *
+     * @param  string  $column
+     * @param  array   $values
+     * @return void
+     */
+    protected function pullAttributeValues($column, array $values)
+    {
+        $current = $this->getAttributeFromArray($column) ?: array();
+
+        foreach ($values as $value)
+        {
+            $keys = array_keys($current, $value);
+
+            foreach ($keys as $key)
+            {
+                unset($current[$key]);
+            }
+        }
+
+        $this->attributes[$column] = array_values($current);
+
+        $this->syncOriginalAttribute($column);
+    }
+
+    /**
+     * Set the parent relation.
+     *
+     * @param Relation $relation
+     */
+    public function setParentRelation(Relation $relation)
+    {
+        $this->parentRelation = $relation;
+    }
+
+    /**
+     * Get the parent relation.
+     *
+     * @return Relation
+     */
+    public function getParentRelation()
+    {
+        return $this->parentRelation;
     }
 
     /**

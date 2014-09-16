@@ -6,7 +6,7 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"mustache/mustache": "dev-master as 2.4",
-		"way/generators": "dev-master",
+		"way/generators": "2.*",
 		"conarwelsh/mustache-l4": "dev-master",
 		"creolab/laravel-modules": "dev-master",
 		"jenssegers/mongodb": "*",

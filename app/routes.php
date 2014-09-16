@@ -26,4 +26,7 @@ Route::get('/admin', function()
 });
 Route::resource('/sites', 'SitesController');
 Route::get('/', 'PagesController@home');
+
+
+
 Route::get('/{id}', 'PagesController@show');

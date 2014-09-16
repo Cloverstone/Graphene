@@ -6,10 +6,11 @@ use MongoDate;
 use DateTime;
 use Closure;
 
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Query\Expression;
 use Jenssegers\Mongodb\Connection;
 
-class Builder extends \Illuminate\Database\Query\Builder {
+class Builder extends QueryBuilder {
 
     /**
      * The database collection
@@ -17,6 +18,20 @@ class Builder extends \Illuminate\Database\Query\Builder {
      * @var MongoCollection
      */
     protected $collection;
+
+    /**
+     * The column projections.
+     *
+     * @var array
+     */
+    public $projections;
+
+    /**
+     * The cursor timeout value.
+     *
+     * @var int
+     */
+    public $timeout;
 
     /**
      * All of the available clause operators.
@@ -27,7 +42,10 @@ class Builder extends \Illuminate\Database\Query\Builder {
         '=', '<', '>', '<=', '>=', '<>', '!=',
         'like', 'not like', 'between', 'ilike',
         '&', '|', '^', '<<', '>>',
-        'exists', 'type', 'mod', 'where', 'all', 'size', 'regex', 'elemmatch'
+        'rlike', 'regexp', 'not regexp',
+        'exists', 'type', 'mod', 'where', 'all', 'size', 'regex', 'text', 'slice', 'elemmatch',
+        'geowithin', 'geointersects', 'near', 'nearsphere', 'geometry',
+        'maxdistance', 'center', 'centersphere', 'box', 'polygon', 'uniquedocs',
     );
 
     /**
@@ -57,6 +75,32 @@ class Builder extends \Illuminate\Database\Query\Builder {
     }
 
     /**
+     * Set the projections.
+     *
+     * @param  array  $columns
+     * @return $this
+     */
+    public function project($columns)
+    {
+        $this->projections = is_array($columns) ? $columns : func_get_args();
+
+        return $this;
+    }
+
+    /**
+     * Set the cursor timeout in seconds.
+     *
+     * @param  int $seconds
+     * @return $this
+     */
+    public function timeout($seconds)
+    {
+        $this->timeout = $seconds;
+
+        return $this;
+    }
+
+    /**
      * Execute a query for a single record by ID.
      *
      * @param  mixed  $id
@@ -69,6 +113,17 @@ class Builder extends \Illuminate\Database\Query\Builder {
     }
 
     /**
+     * Execute the query as a "select" statement.
+     *
+     * @param  array  $columns
+     * @return array|static[]
+     */
+    public function get($columns = array())
+    {
+        return parent::get($columns);
+    }
+
+    /**
      * Execute the query as a fresh "select" statement.
      *
      * @param  array  $columns
@@ -76,8 +131,6 @@ class Builder extends \Illuminate\Database\Query\Builder {
      */
     public function getFresh($columns = array())
     {
-        $start = microtime(true);
-
         // If no columns have been specified for the select statement, we will set them
         // here to either the passed columns, or the standard default of retrieving
         // all of the columns on the table using the "wildcard" column character.
@@ -90,7 +143,7 @@ class Builder extends \Illuminate\Database\Query\Builder {
         $wheres = $this->compileWheres();
 
         // Use MongoDB's aggregation framework when using grouping or aggregation functions.
-        if ($this->groups || $this->aggregate)
+        if ($this->groups or $this->aggregate)
         {
             $group = array();
 
@@ -141,6 +194,7 @@ class Builder extends \Illuminate\Database\Query\Builder {
                 foreach ($this->columns as $column)
                 {
                     $key = str_replace('.', '_', $column);
+
                     $group[$key] = array('$last' => '$' . $column);
                 }
             }
@@ -151,17 +205,13 @@ class Builder extends \Illuminate\Database\Query\Builder {
             $pipeline[] = array('$group' => $group);
 
             // Apply order and limit
-            if ($this->orders) $pipeline[] = array('$sort' => $this->orders);
-            if ($this->offset) $pipeline[] = array('$skip' => $this->offset);
-            if ($this->limit)  $pipeline[] = array('$limit' => $this->limit);
+            if ($this->orders)      $pipeline[] = array('$sort' => $this->orders);
+            if ($this->offset)      $pipeline[] = array('$skip' => $this->offset);
+            if ($this->limit)       $pipeline[] = array('$limit' => $this->limit);
+            if ($this->projections) $pipeline[] = array('$project' => $this->projections);
 
             // Execute aggregation
             $results = $this->collection->aggregate($pipeline);
-
-            // Log query
-            $this->connection->logQuery(
-                $this->from . '.aggregate(' . json_encode($pipeline) . ')',
-                array(), $this->connection->getElapsedTime($start));
 
             // Return results
             return $results['result'];
@@ -176,11 +226,6 @@ class Builder extends \Illuminate\Database\Query\Builder {
             // Execute distinct
             $result = $this->collection->distinct($column, $wheres);
 
-            // Log query
-            $this->connection->logQuery(
-                $this->from . '.distinct("' . $column . '", ' . json_encode($wheres) . ')',
-                array(), $this->connection->getElapsedTime($start));
-
             return $result;
         }
 
@@ -188,23 +233,27 @@ class Builder extends \Illuminate\Database\Query\Builder {
         else
         {
             $columns = array();
+
+            // Convert select columns to simple projections.
             foreach ($this->columns as $column)
             {
                 $columns[$column] = true;
+            }
+
+            // Add custom projections.
+            if ($this->projections)
+            {
+                $columns = array_merge($columns, $this->projections);
             }
 
             // Execute query and get MongoCursor
             $cursor = $this->collection->find($wheres, $columns);
 
             // Apply order, offset and limit
-            if ($this->orders) $cursor->sort($this->orders);
-            if ($this->offset) $cursor->skip($this->offset);
-            if ($this->limit)  $cursor->limit($this->limit);
-
-            // Log query
-            $this->connection->logQuery(
-                $this->from . '.find(' . json_encode($wheres) . ', ' . json_encode($columns) . ')',
-                array(), $this->connection->getElapsedTime($start));
+            if ($this->timeout) $cursor->timeout($this->timeout);
+            if ($this->orders)  $cursor->sort($this->orders);
+            if ($this->offset)  $cursor->skip($this->offset);
+            if ($this->limit)   $cursor->limit($this->limit);
 
             // Return results as an array with numeric keys
             return iterator_to_array($cursor, false);
@@ -324,30 +373,24 @@ class Builder extends \Illuminate\Database\Query\Builder {
      */
     public function insert(array $values)
     {
-        $start = microtime(true);
-
         // Since every insert gets treated like a batch insert, we will have to detect
         // if the user is inserting a single document or an array of documents.
         $batch = true;
+
         foreach ($values as $value)
         {
             // As soon as we find a value that is not an array we assume the user is
             // inserting a single document.
-            if (!is_array($value))
+            if ( ! is_array($value))
             {
                 $batch = false; break;
             }
         }
 
-        if (!$batch) $values = array($values);
+        if ( ! $batch) $values = array($values);
 
         // Batch insert
         $result = $this->collection->batchInsert($values);
-
-        // Log query
-        $this->connection->logQuery(
-            $this->from . '.batchInsert(' . json_encode($values) . ')',
-            array(), $this->connection->getElapsedTime($start));
 
         return (1 == (int) $result['ok']);
     }
@@ -361,18 +404,11 @@ class Builder extends \Illuminate\Database\Query\Builder {
      */
     public function insertGetId(array $values, $sequence = null)
     {
-        $start = microtime(true);
-
         $result = $this->collection->insert($values);
-
-        // Log query
-        $this->connection->logQuery(
-            $this->from . '.insert(' . json_encode($values) . ')',
-            array(), $this->connection->getElapsedTime($start));
 
         if (1 == (int) $result['ok'])
         {
-            if (!$sequence)
+            if (is_null($sequence))
             {
                 $sequence = '_id';
             }
@@ -391,7 +427,13 @@ class Builder extends \Illuminate\Database\Query\Builder {
      */
     public function update(array $values, array $options = array())
     {
-        return $this->performUpdate(array('$set' => $values), $options);
+        // Use $set as default operator.
+        if ( ! starts_with(key($values), '$'))
+        {
+            $values = array('$set' => $values);
+        }
+
+        return $this->performUpdate($values, $options);
     }
 
     /**
@@ -402,13 +444,11 @@ class Builder extends \Illuminate\Database\Query\Builder {
      * @param  array   $extra
      * @return int
      */
-    public function increment($column, $amount = 1, array $extra = array())
+    public function increment($column, $amount = 1, array $extra = array(), array $options = array())
     {
-        $query = array(
-            '$inc' => array($column => $amount)
-        );
+        $query = array('$inc' => array($column => $amount));
 
-        if (!empty($extra))
+        if ( ! empty($extra))
         {
             $query['$set'] = $extra;
         }
@@ -417,10 +457,11 @@ class Builder extends \Illuminate\Database\Query\Builder {
         $this->where(function($query) use ($column)
         {
             $query->where($column, 'exists', false);
+
             $query->orWhereNotNull($column);
         });
 
-        return $this->performUpdate($query);
+        return $this->performUpdate($query, $options);
     }
 
     /**
@@ -431,9 +472,9 @@ class Builder extends \Illuminate\Database\Query\Builder {
      * @param  array   $extra
      * @return int
      */
-    public function decrement($column, $amount = 1, array $extra = array())
+    public function decrement($column, $amount = 1, array $extra = array(), array $options = array())
     {
-        return $this->increment($column, -1 * $amount, $extra);
+        return $this->increment($column, -1 * $amount, $extra, $options);
     }
 
     /**
@@ -464,15 +505,9 @@ class Builder extends \Illuminate\Database\Query\Builder {
      */
     public function delete($id = null)
     {
-        $start = microtime(true);
-
         $wheres = $this->compileWheres();
-        $result = $this->collection->remove($wheres);
 
-        // Log query
-        $this->connection->logQuery(
-            $this->from . '.remove(' . json_encode($wheres) . ')',
-            array(), $this->connection->getElapsedTime($start));
+        $result = $this->collection->remove($wheres);
 
         if (1 == (int) $result['ok'])
         {
@@ -525,7 +560,7 @@ class Builder extends \Illuminate\Database\Query\Builder {
         }
 
         // Create an expression for the given value
-        else if (!is_null($expression))
+        else if ( ! is_null($expression))
         {
             return new Expression($expression);
         }
@@ -546,9 +581,16 @@ class Builder extends \Illuminate\Database\Query\Builder {
         // Use the addToSet operator in case we only want unique items.
         $operator = $unique ? '$addToSet' : '$push';
 
+        // Check if we are pushing multiple values.
+        $batch = (is_array($value) and array_keys($value) === range(0, count($value) - 1));
+
         if (is_array($column))
         {
             $query = array($operator => $column);
+        }
+        else if ($batch)
+        {
+            $query = array($operator => array($column => array('$each' => $value)));
         }
         else
         {
@@ -567,13 +609,19 @@ class Builder extends \Illuminate\Database\Query\Builder {
      */
     public function pull($column, $value = null)
     {
+        // Check if we passed an associative array.
+        $batch = (is_array($value) and array_keys($value) === range(0, count($value) - 1));
+
+        // If we are pulling multiple values, we need to use $pullAll.
+        $operator = $batch ? '$pullAll' : '$pull';
+
         if (is_array($column))
         {
-            $query = array('$pull' => $column);
+            $query = array($operator => $column);
         }
         else
         {
-            $query = array('$pull' => array($column => $value));
+            $query = array($operator => array($column => $value));
         }
 
         return $this->performUpdate($query);
@@ -587,7 +635,7 @@ class Builder extends \Illuminate\Database\Query\Builder {
      */
     public function drop($columns)
     {
-        if (!is_array($columns)) $columns = array($columns);
+        if ( ! is_array($columns)) $columns = array($columns);
 
         $fields = array();
 
@@ -620,21 +668,15 @@ class Builder extends \Illuminate\Database\Query\Builder {
      */
     protected function performUpdate($query, array $options = array())
     {
-        $start = microtime(true);
-
-        // Default options
-        $default = array('multiple' => true);
-
-        // Merge options and override default options
-        $options = array_merge($default, $options);
+        // Update multiple items by default.
+        if ( ! array_key_exists('multiple', $options))
+        {
+            $options['multiple'] = true;
+        }
 
         $wheres = $this->compileWheres();
-        $result = $this->collection->update($wheres, $query, $options);
 
-        // Log query
-        $this->connection->logQuery(
-            $this->from . '.update(' . json_encode($wheres) . ', ' . json_encode($query) . ', ' . json_encode($options) . ')',
-            array(), $this->connection->getElapsedTime($start));
+        $result = $this->collection->update($wheres, $query, $options);
 
         if (1 == (int) $result['ok'])
         {
@@ -652,12 +694,37 @@ class Builder extends \Illuminate\Database\Query\Builder {
      */
     public function convertKey($id)
     {
-        if (is_string($id) && strlen($id) === 24 && ctype_xdigit($id))
+        if (is_string($id) and strlen($id) === 24 and ctype_xdigit($id))
         {
             return new MongoId($id);
         }
 
         return $id;
+    }
+
+    /**
+     * Add a basic where clause to the query.
+     *
+     * @param  string  $column
+     * @param  string  $operator
+     * @param  mixed   $value
+     * @param  string  $boolean
+     * @return \Illuminate\Database\Query\Builder|static
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function where($column, $operator = null, $value = null, $boolean = 'and')
+    {
+        // Remove the leading $ from operators.
+        if (func_num_args() == 3)
+        {
+            if (starts_with($operator, '$'))
+            {
+                $operator = substr($operator, 1);
+            }
+        }
+
+        return parent::where($column, $operator, $value, $boolean);
     }
 
     /**
@@ -680,15 +747,26 @@ class Builder extends \Illuminate\Database\Query\Builder {
             {
                 $where['operator'] = strtolower($where['operator']);
 
-                // Fix elemMatch.
-                if ($where['operator'] == 'elemmatch')
+                // Operator conversions
+                $convert = array(
+                    'regexp' => 'regex',
+                    'elemmatch' => 'elemMatch',
+                    'geointersects' => 'geoIntersects',
+                    'geowithin' => 'geoWithin',
+                    'nearsphere' => 'nearSphere',
+                    'maxdistance' => 'maxDistance',
+                    'centersphere' => 'centerSphere',
+                    'uniquedocs' => 'uniqueDocs',
+                );
+
+                if (array_key_exists($where['operator'], $convert))
                 {
-                    $where['operator'] = 'elemMatch';
+                    $where['operator'] = $convert[$where['operator']];
                 }
             }
 
             // Convert id's.
-            if (isset($where['column']) && $where['column'] == '_id')
+            if (isset($where['column']) and ($where['column'] == '_id' or ends_with($where['column'], '._id')))
             {
                 // Multiple values.
                 if (isset($where['values']))
@@ -707,7 +785,7 @@ class Builder extends \Illuminate\Database\Query\Builder {
             }
 
             // Convert DateTime values to MongoDate.
-            if (isset($where['value']) && $where['value'] instanceof DateTime)
+            if (isset($where['value']) and $where['value'] instanceof DateTime)
             {
                 $where['value'] = new MongoDate($where['value']->getTimestamp());
             }
@@ -754,11 +832,28 @@ class Builder extends \Illuminate\Database\Query\Builder {
             $operator = '=';
             $regex = str_replace('%', '', $value);
 
-            // Prepare regex
-            if (substr($value, 0, 1) != '%') $regex = '^' . $regex;
-            if (substr($value, -1) != '%')   $regex = $regex . '$';
+            // Convert like to regular expression.
+            if ( ! starts_with($value, '%')) $regex = '^' . $regex;
+            if ( ! ends_with($value, '%'))   $regex = $regex . '$';
 
             $value = new MongoRegex("/$regex/i");
+        }
+
+        // Manipulate regexp operations.
+        elseif (in_array($operator, array('regexp', 'not regexp', 'regex', 'not regex')))
+        {
+            // Automatically convert regular expression strings to MongoRegex objects.
+            if ( ! $value instanceof MongoRegex)
+            {
+                $value = new MongoRegex($value);
+            }
+
+            // For inverse regexp operations, we can just use the $not operator
+            // and pass it a MongoRegex instence.
+            if (starts_with($operator, 'not'))
+            {
+                $operator = 'not';
+            }
         }
 
         if ( ! isset($operator) or $operator == '=')
