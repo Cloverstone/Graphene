@@ -49,6 +49,9 @@ routes = {
 			myForm = new formModel({ '_id' : id });
 			myForm.fetch( { success: function() {
 				contentManager.show( new editFormView( { model: myForm } ) );
+			}, error: function(e){
+
+				alert('fail');
 			}});
 		},
 		resource: 'forms'

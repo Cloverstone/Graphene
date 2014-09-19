@@ -276,16 +276,16 @@
         },
         {
             "name": "jenssegers/mongodb",
-            "version": "v2.0.1",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jenssegers/laravel-mongodb.git",
-                "reference": "67434f23af803531f53e65c553b8f4af8c1708d0"
+                "reference": "160096c4f01f300d08f8b4c2d1b295be07d74b44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jenssegers/laravel-mongodb/zipball/67434f23af803531f53e65c553b8f4af8c1708d0",
-                "reference": "67434f23af803531f53e65c553b8f4af8c1708d0",
+                "url": "https://api.github.com/repos/jenssegers/laravel-mongodb/zipball/160096c4f01f300d08f8b4c2d1b295be07d74b44",
+                "reference": "160096c4f01f300d08f8b4c2d1b295be07d74b44",
                 "shasum": ""
             },
             "require": {
@@ -330,7 +330,7 @@
                 "mongo",
                 "mongodb"
             ],
-            "time": "2014-08-11 09:39:14"
+            "time": "2014-09-16 10:50:01"
         },
         {
             "name": "jeremeamia/SuperClosure",

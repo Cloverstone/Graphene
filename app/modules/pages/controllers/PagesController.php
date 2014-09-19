@@ -112,6 +112,7 @@ class PagesController extends BaseController {
    */
   public function show($id)
   {
+//    return Page::find($id);
     if (Request::wantsJson()) {
       $page = Page::find($id);
        return $page;

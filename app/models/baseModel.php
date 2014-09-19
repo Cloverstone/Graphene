@@ -2,7 +2,6 @@
 
 use Jenssegers\Mongodb\Model as Eloquent;
 class BaseModel extends Eloquent {
-	
   public function scopeCreatedBetween($query, $start, $end)
   {
 		$query->where('created_at', '>', $start)
@@ -11,5 +10,6 @@ class BaseModel extends Eloquent {
   public function scopeBySite($query)
   {
 		$query->where("site_id", "=", Config::get('site')['_id']);
-	}
+	}  
+
 }
