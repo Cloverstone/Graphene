@@ -137,7 +137,7 @@ restaurantMenuItemView = Backbone.View.extend({
 		'click': 'edit'
 	},
 	edit: function() {
-		this.form({legend: 'Menu Item', fields: ['Name', 'Price', 'Description', 'Tags', {label: 'Category', name: 'category_id', type: 'select', key: 'text', choices: myRestaurantCategories}]});
+		this.form({legend: 'Menu Item', fields: ['Name', 'Price', 'Description', 'Tags', {label: 'Category', name: 'restaurant_category_id', type: 'select', key: 'text', reference: '_id', choices: myRestaurantCategories}]});
 	},
 	template: 'menu_item_view',
 	target: '#menu-list',
@@ -152,7 +152,7 @@ restaurantMenuItemModel = Backbone.Model.extend({
 		Price: {required: true},
 		Description: {type: 'textarea'},
 		Tags: {type: 'tags'},
-		Category: {name: 'category_id', type: 'select', key: 'text', choices: myRestaurantCategories},
+		Category: {name: 'restaurant_category_id', type: 'select', key: 'text', reference: '_id', choices: myRestaurantCategories},
 	},
 	idAttribute: '_id',
 	urlRoot: '/restaurant/menu_items'

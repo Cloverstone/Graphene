@@ -47,7 +47,7 @@
 </span>
 
       <ul id="menu">
-        <li name="home"><a href="/">Home</a></li>
+        <li name="home"><a href="/">Homes</a></li>
 <li class="divider"></li>
         <li name="about"><a href="/about">About us</a></li>
 <li class="divider"></li>

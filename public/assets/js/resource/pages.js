@@ -1,4 +1,3 @@
-
 pagesView = Backbone.View.extend({
 	events: {
 		'click .fa-plus': 'add'

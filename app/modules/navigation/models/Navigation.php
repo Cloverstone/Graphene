@@ -1,5 +1,5 @@
 <?php
 
 class Navigation extends BaseModel {
-	protected $fillable = ['text', 'link'];
+	protected $fillable = ['text', 'target'];
 }

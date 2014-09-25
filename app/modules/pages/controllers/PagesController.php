@@ -93,9 +93,10 @@ class PagesController extends BaseController {
       return $page;
     } else {
       $page = Page::bySite()->where("slug", "=", Config::get('site')['homepage'])->first();
+      $menu = View::make('themes/'.Config::get('site')['theme'].'/menu' , array("items" => Navigation::bySite()->select('text', 'target')->get())); 
       //$page = array('title'=>'none', 'slug'=>'', 'content'=>'');
       //$menuArray = Config::get('menu');
-      $menu = View::make('menu' , array("items" => Config::get('menu')));
+      //$menu = View::make('menu' , array("items" => Config::get('menu')));
       $side_menu = View::make('side_menu' , array("items" => Config::get('side_menu')));
 //      $content = View::make('content' , $page);
       return View::make('themes/'.Config::get('site')['theme'].'/home' , array("menu" => $menu, "side_menu" => $side_menu, "page"=>$page));
@@ -112,16 +113,17 @@ class PagesController extends BaseController {
    */
   public function show($id)
   {
-//    return Page::find($id);
+    //return Page::find($id);
     if (Request::wantsJson()) {
       $page = Page::find($id);
        return $page;
     } else {
 //      $page = Page::where("slug", "=", $id)->first();
       $page = Page::bySite()->where("slug", "=", $id)->first();
-     
+      $menu = View::make('themes/'.Config::get('site')['theme'].'/menu' , array("items" => Navigation::bySite()->select('text', 'target')->get())); 
+
       //$menuArray = Config::get('menu');
-      $menu = View::make('menu' , array("items" => Config::get('menu')));
+      //$menu = View::make('menu' , array("items" => Config::get('menu')));
       $side_menu = View::make('side_menu' , array("items" => Config::get('side_menu')));
 //      $content = View::make('content' , $page);
       return View::make('themes/'.Config::get('site')['theme'].'/home' , array("menu" => $menu, "side_menu" => $side_menu, "page"=>$page));

@@ -46,7 +46,7 @@
 <div>Monday - Saturday: 4:30 - 9:30</div>
 </span>
 
-      <ul id="menu">
+<!--       <ul id="menu">
         <li name="home"><a href="/">Home</a></li>
 <li class="divider"></li>
         <li name="about"><a href="/about">About us</a></li>
@@ -62,8 +62,8 @@
         <li name="contact"><a href="/contact">Contact</a></li>
 <li class="divider"></li>
         <li name="our_stuff"><a href="/gallery/2/our_stuff">Photos</a></li>
-      </ul>
-
+      </ul> -->
+{{ $menu }}
     </div></div>
 
 
