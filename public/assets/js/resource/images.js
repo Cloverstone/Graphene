@@ -22,9 +22,15 @@ imagesView = Backbone.View.extend({
 		// 	myImages.add(temp);
 		// 	new imageView({'model': temp});
 		// }});
-		$().berry({fields:[{type: 'upload', label: false, path: '/images', name: 'image_filename'}]})
+		// $().berry({fields:[{type: 'upload', label: false, path: '/images', name: 'image_filename'}]})
 
-
+		this.form({legend: 'Add Image(s)', fields:[{type: 'upload', label: false, path: '/images', name: 'image_filename'}]}).on('change', $.proxy(function(){
+			this.collection.add(new this.collection.model({name: this.berry.fields.image_filename.value}));
+			this.berry.ref.modal('hide');
+		}, this)).on('destroyed', $.proxy(function(){
+			contentManager.show( new this.constructor({ collection: this.collection }));
+		}, this));
+		
 
 			
 	},

@@ -72,7 +72,10 @@ navigationModel = Backbone.Model.extend({
 		Link: {name: 'target'},
 	},
 	idAttribute: '_id',
-	urlRoot: '/navs'
+	urlRoot: '/navs',
+	initialize: function(){
+		this.bind('change', function(){ this.save(); });
+	}
 });
 navigationCollection = Backbone.Collection.extend({
 	model: navigationModel,

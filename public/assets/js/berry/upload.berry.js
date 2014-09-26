@@ -9,12 +9,19 @@ Berry.register({
 		}
 		this.$el.on('input', $.proxy(function(){this.trigger('change');},this));
 
+
+
 			myDropzone = new Dropzone('#' + this.name, { method: 'post', paramName: this.name, success: $.proxy(function(message,response){
 				//contentManager.currentView.model.set(this.name, response[this.name]);
-				myDropzone.removeAllFiles();
-				this.setValue(response[this.name]);
+				//myDropzone.removeAllFiles();
+
+				//this.setValue(response[this.name]);
+				this.setValue(response.name);
 				this.trigger('change');
 			}, this)});
+			// myDropzone.on("complete", function(file) {
+			// 	myDropzone.removeFile(file);
+			// });
 
 	},
 	getValue: function() {

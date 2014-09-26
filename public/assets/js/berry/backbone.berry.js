@@ -4,10 +4,12 @@ Berry.prototype.events.initialize.push({
 		if(typeof this.options.model !== 'undefined'){
 			this.on('save', function() {
 				if(this.validate()){
+					// this.options.model.save(this.toJSON() , {wait: true, patch: true, success: $.proxy(function(){
+					// 	this.trigger('saved');
+					// }, this)});
 					this.trigger('saveing');
-					this.options.model.save(this.toJSON() , {wait: true, patch: true, success: $.proxy(function(){
-						this.trigger('saved');
-					}, this)});
+					this.options.model.set(this.toJSON());
+					this.trigger('saved');
 				}
 				return this.valid;
 			});
@@ -37,14 +39,14 @@ Berry.prototype.events.initialize.push({
 			if(typeof this.options.attributes === 'undefined' || $.isEmptyObject(this.options.attributes)) {
 				this.options.attributes = this.options.model.toJSON();
 
-				var temp = this.options.model.on('change',function(){
-					for(var i in this.options.model.changed){
-						if(typeof this.fields[i] !== 'undefined'){
-							this.fields[i].set(this.options.model.changed[i]);
-//							this.fields[i].publish('changed');
-						}
-					}
-				},this);
+// 				this.options.model.on('change',function(){
+// 					for(var i in this.options.model.changed){
+// 						if(typeof this.fields[i] !== 'undefined'){
+// 							this.fields[i].set(this.options.model.changed[i]);
+// //							this.fields[i].publish('changed');
+// 						}
+// 					}
+// 				},this);
 				this.on('destroy',function(){
 					this.options.model.on('change',null,this);
 				});

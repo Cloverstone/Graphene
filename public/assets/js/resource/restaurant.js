@@ -83,7 +83,10 @@ restaurantCategoriesModel = Backbone.Model.extend({
 		Description: {type: 'textarea'}
 	},
 	idAttribute: '_id',
-	urlRoot: '/restaurant/categories'
+	urlRoot: '/restaurant/categories',
+	initialize: function(){
+		this.bind('change', function(){ this.save(); });
+	}
 });
 restaurantCategoriesCollection = Backbone.Collection.extend({
 	model: restaurantCategoriesModel,
@@ -155,7 +158,10 @@ restaurantMenuItemModel = Backbone.Model.extend({
 		Category: {name: 'restaurant_category_id', type: 'select', key: 'text', reference: '_id', choices: myRestaurantCategories},
 	},
 	idAttribute: '_id',
-	urlRoot: '/restaurant/menu_items'
+	urlRoot: '/restaurant/menu_items',
+	initialize: function(){
+		this.bind('change', function(){ this.save(); });
+	}
 });
 restaurantMenuItemsCollection = Backbone.Collection.extend({
 	model: restaurantMenuItemModel,

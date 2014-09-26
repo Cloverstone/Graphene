@@ -53,7 +53,10 @@ siteModel = Backbone.Model.extend({
 		Modules: {type: 'tags', show: {'not_matches': {name: 'redirect', value: 'Yes'}}}
 	},
 	idAttribute: '_id',
-	urlRoot: '/sites'
+	urlRoot: '/sites',
+	initialize: function(){
+		this.bind('change', function(){ this.save(); });
+	}
 });
 sitesCollection = Backbone.Collection.extend({
 //		localStorage: new Backbone.LocalStorage('forms'), // Unique name within your app.

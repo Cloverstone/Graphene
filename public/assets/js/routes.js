@@ -60,7 +60,7 @@ routes = {
 		init: function() {
 			myImages = new imageCollection();
 			myImages.fetch( { success: function() {
-				contentManager.show( new imagesView() );
+				contentManager.show( new imagesView({collection: myImages}) );
 			}});
 		},
 		resource: 'images'

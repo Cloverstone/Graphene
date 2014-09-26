@@ -152,6 +152,7 @@ $(function() {
 	Backbone.View.prototype.form = function(options) {
 		options = options || {target: this.formTarget};
 		this.berry = $(this.formTarget || options.target).berry($.extend({model: this.model, legend: this.legend, fields: this.fields }, options));
+		return this.berry;
 	};
 	Backbone.View.prototype.destroy = function(e) {
 		e.stopPropagation();
