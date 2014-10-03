@@ -4,9 +4,9 @@
 		<h3>{{text}}</h3>
 		<p>{{description}}</p>
 	</div>
-	<ul style="margin:0px">
+	<ul style="margin:0;padding:0">
 		{{#items}}
-		<li class="width6 pull-left filterable menu-item odd top1 bottom0">
+		<li class="width6 pull-left filterable menu-item {{#odd}}odd{{/odd}}{{^odd}}even{{/odd}} {{#first}}top1{{/first}} {{#second}}top2{{/second}} {{#penultimate}}bottom0{{/penultimate}} {{#last}}bottom1{{/last}}">
 			<div>
 				<span class="name">{{name}}</span>
 				<span class="price">{{price}}</span>

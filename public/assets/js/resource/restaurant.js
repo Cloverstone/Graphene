@@ -166,5 +166,11 @@ restaurantMenuItemModel = Backbone.Model.extend({
 restaurantMenuItemsCollection = Backbone.Collection.extend({
 	model: restaurantMenuItemModel,
 	url: '/restaurant/menu_items',
-	
+	parse: function(response){
+debugger;
+		// _.each(response.models, function(model) {
+
+		// });
+		return response;
+	}
 });
