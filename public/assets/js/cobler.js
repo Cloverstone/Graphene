@@ -21,9 +21,9 @@ function cobler(options){
 				placeholder: 'cb-placeholder',
 				forcePlaceholderSize: true,
 				axis: this.options.axis,
-				// start: function(event,ui) {
-				// 	$('.cb-placeholder');//.attr('data-name',$(ui.item[0]).attr('data-name')).addClass($(ui.item[0]).attr('class'));
-				// },
+				 start: function(event,ui) {
+				 	$('.cb-placeholder').attr('data-name',$(ui.item[0]).attr('data-name')).addClass($(ui.item[0]).attr('class'));
+				 },
 				stop: $.proxy(function(event, ui) {
 					this.slices.splice($(ui.item).index(), 0, this.slices.splice(getSliceIndex($(ui.item).attr('id')), 1)[0]);
 					cobler.changed = true;
@@ -115,9 +115,17 @@ function cobler(options){
 		cobler.changed = true;
 		if(this.selected){
 			this.selected.toJSON();
-			if(thrower.force == true || this.selected.contentFields !== true) {
+
+			//if(thrower.force == true || this.selected.contentFields !== true) {
+			if(thrower.force == true || this.form.find(thrower.path).force == true || this.selected.contentFields !== true) {
 				// /this.form.find(thrower.path).ignore
+		if(self.selected.editView){
+			this.selected.$el.find('.cobler-li-content').html(this.selected.editView());
+
+				//this.selected.$el.replaceWith($(this.selected.createEL()).addClass('selected'));
+		}else{
 				this.selected.$el.replaceWith($(this.selected.createEL()).addClass('selected'));
+		}
 			}
 			if(this.selected.callback) {
 				this.selected.callback.call(this.selected);
@@ -354,7 +362,7 @@ cobler.slice = function(owner, initial) {
 
 $.extend(cobler.slice.prototype, {
 	createEL: function() {
-		if(cb.options.editable){
+		if(cb.options.editable) {
 			this.$el = $(Berry.render('cobler_element_cobler', this));
 		}else{
 			this.$el = $(Berry.render('cobler_element_cobler_noedit', this));

@@ -106,7 +106,7 @@ a:visited
 [name=hibachi] #menu li[name=hibachi],
 [name=sushi] #menu li[name=sushi],
 [name=traditional] #menu li[name=traditional],
-[name=menu] #menu li[name=menu]
+[name=Menu] #menu li[name='/restaurant/menu']
 {background:#f8f8f8;
   -webkit-border-radius:3px;
   -moz-border-radius:3px;
@@ -118,7 +118,7 @@ a:visited
 [name=hibachi] #menu li[name=hibachi] a,
 [name=sushi] #menu li[name=sushi] a,
 [name=traditional] #menu li[name=traditional] a,
-[name=menu] #menu li[name=menu] a
+[name=Menu] #menu li[name='/restaurant/menu'] a
 {color:#f3152b;}
 
 #menu li:hover{background:#f8f8f8;
@@ -391,7 +391,7 @@ font-family: verdana, sans-serif;
 }
 
 .width6{width:50% !important;}
-li.menu-item{list-style-type:none ;}
+li.menu-item{list-style-type:none;line-height: 20px;}
 
 
 

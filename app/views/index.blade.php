@@ -21,7 +21,7 @@
 							<div data-original-title="Toggle Navigation" data-placement="right" class="fa fa-bars tooltips"></div>
 					</div>
 					<!--logo start-->
-					<a href="#" class="logo" style="margin-top: 12px;"><img src="/assets/img/graphene_bad.png" /></span></a>
+					<a href="#" class="logo" style="margin-top: 12px;"><img src="/assets/img/graphene.png" /></span></a>
 					<!--logo end-->
 					<div class="horizontal-menu navbar-collapse collapse ">
 						<ul class="nav navbar-nav">

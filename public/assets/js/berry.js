@@ -1,4 +1,4 @@
-//		BerryJS 0.9.0.7
+//		BerryJS 0.9.0.8
 //		(c) 2011-2014 Adam Smallcomb
 //		Licensed under the MIT license.
 //		For all details and documentation:
@@ -1108,7 +1108,6 @@ Berry.processOpts = function(item) {
 		}
 		if(typeof item.choices === 'object' && !$.isArray(item.choices)){
 			item.choices = item.choices.toJSON();
-
 		}
 		if(typeof item.default !== 'undefined'){
 			item.choices.unshift(item.default);

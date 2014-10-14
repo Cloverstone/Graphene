@@ -9,8 +9,8 @@ $(function(){
       level: 'h1'
     },
     fields: [
-      {label: false, name: 'text', fieldset: 'selected .cobler-li-content',},
-      {type: 'custom_radio', label: 'Level', name: 'level', fieldset: 'alt-form', choices:[
+      {label: false, name: 'text', fieldset: 'selected .cobler-li-content div',},
+      {type: 'custom_radio', force: true, label: 'Level', name: 'level', fieldset: 'alt-form', choices:[
         {name: 'H1', value: 'h1'},
         {name: 'H2', value: 'h2'},
         {name: 'H3', value: 'h3'}
@@ -21,7 +21,7 @@ $(function(){
     },
     contentFields: true,
     editView:  function(){
-      return '';
+      return '<div class="text' + this.attributes.level + '"></div>';
     }
   });
 });

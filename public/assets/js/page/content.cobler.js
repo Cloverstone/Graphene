@@ -6,7 +6,7 @@ $(function(){
     display: 'Editable Content',
     defaults: {
       text: 'Add some text here...',
-      width: '12',
+      width: 12,
       type: 'text',
       required: false,
       help: ''
@@ -22,6 +22,14 @@ $(function(){
     },
     fields: [
       {type: 'contenteditable', label: false, name: 'text', fieldset: 'selected .cobler-li-content', unstyled: true},
+      //{type: 'fieldset',name:'choices_c', legend: '<i class="fa fa-th-list"></i> Choices', inline: true, fields:[
+        {type: 'select', label: 'Width', name: 'width', force: true, choices:[
+          {name: 'Quarter', value: 3},
+          {name: 'Half', value: 6},
+          {name: 'Full', value: 12}
+        ]},
+        
+     // ]}
     ],
     blur: function() {
       if(this.attributes.text.length === 0 && this.attributes.text !== '<br>' && this.attributes.text !== 'Add some text here...') {

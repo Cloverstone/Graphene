@@ -12,14 +12,14 @@ Berry.register({
 		if(this.item.advanced && $.fn.htmlarea){
 			this.$el.css({height: '300px'}).htmlarea({
 				toolbar: (this.item.toolbar || [
-						//['html'],
-						['bold', 'italic', 'underline'],
-						['superscript', 'subscript'],
-						['justifyleft', 'justifycenter', 'justifyright'],
-						['indent', 'outdent'],
-						['orderedList', 'unorderedList'],
-						['link', 'unlink'],
-						['horizontalrule']
+					//['html'],
+					['bold', 'italic', 'underline'],
+					['superscript', 'subscript'],
+					['justifyleft', 'justifycenter', 'justifyright'],
+					['indent', 'outdent'],
+					['orderedList', 'unorderedList'],
+					['link', 'unlink'],
+					['horizontalrule']
 				])
 			});
 			this.$el.on('change', $.proxy(function(){this.trigger('change');},this));

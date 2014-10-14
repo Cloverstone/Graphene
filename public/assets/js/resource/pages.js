@@ -54,7 +54,7 @@ editPageView = Backbone.View.extend({
 	},
 	template: 'pages_edit' ,
 	onShow: function() {
-		cb = new cobler({target: '#itemcontainer', axis: 'y', types: ['content']});
+		cb = new cobler({target: '#itemcontainer', types: ['content']});
 		cb.load(this.model.attributes.json);
 	},
 	render: function() {
