@@ -1,7 +1,7 @@
 $(function() {
 	cobler.register({
 		type: 'oembed',
-    category: 'content',
+    category: 'none',
 		icon: 'circle-o',
 		display: 'Embed',
 		defaults: {
