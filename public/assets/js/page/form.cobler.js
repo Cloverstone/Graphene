@@ -18,7 +18,11 @@ $(function(){
           url: '/forms/'+this.attributes.form,
           success: $.proxy(function(response){
             this.attributes._id = response._id;
-            this.attributes.content = response.content
+            this.attributes.content = response.content;
+            //$.extendthis.attributes
+            this.attributes.title = response.title;
+            this.attributes.content =  Mustache.render('<form id="{{_id}} action="/forms/submit/{{_id}}"><legend>{{title}}</legend>{{{content}}}</form>', this.attributes);
+
             this.$el.html(this.attributes.content);
           }, this),error:function(){
             alert('Bad Response');
