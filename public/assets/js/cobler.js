@@ -17,13 +17,13 @@ function cobler(options){
 			$('#cb-content').sortable({
 				cursor: 'move',
 				//items: "> li:not(.selected)",
-     		items: "li:not(.locked)",
+				items: "li:not(.locked)",
 				placeholder: 'cb-placeholder',
 				forcePlaceholderSize: true,
 				axis: this.options.axis,
-				 start: function(event,ui) {
-				 	$('.cb-placeholder').attr('data-name',$(ui.item[0]).attr('data-name')).addClass($(ui.item[0]).attr('class'));
-				 },
+				start: function(event,ui) {
+					$('.cb-placeholder').attr('data-name',$(ui.item[0]).attr('data-name')).addClass($(ui.item[0]).attr('class'));
+				},
 				stop: $.proxy(function(event, ui) {
 					this.slices.splice($(ui.item).index(), 0, this.slices.splice(getSliceIndex($(ui.item).attr('id')), 1)[0]);
 					cobler.changed = true;
@@ -119,13 +119,19 @@ function cobler(options){
 			//if(thrower.force == true || this.selected.contentFields !== true) {
 			if(thrower.force == true || this.form.find(thrower.path).force == true || this.selected.contentFields !== true) {
 				// /this.form.find(thrower.path).ignore
-		if(self.selected.editView){
-			this.selected.$el.find('.cobler-li-content').html(this.selected.editView());
-
-				//this.selected.$el.replaceWith($(this.selected.createEL()).addClass('selected'));
-		}else{
 				this.selected.$el.replaceWith($(this.selected.createEL()).addClass('selected'));
-		}
+				if(self.selected.editView && thrower.force !== true ){
+					this.selected.$el.find('.cobler-li-content').html(this.selected.editView());
+					if(this.form.find(thrower.path).force == true){
+//						alert('here');
+						this.form.destroy();
+						edit(this.selected.$el);
+					}
+					//this.selected.$el.replaceWith($(this.selected.createEL()).addClass('selected'));
+				 }
+				//else{
+				// 	this.selected.$el.replaceWith($(this.selected.createEL()).addClass('selected'));
+				// }
 			}
 			if(this.selected.callback) {
 				this.selected.callback.call(this.selected);
@@ -134,7 +140,7 @@ function cobler(options){
 	};
 	
 	this.deselect = function() {
-		if(self.selected){
+		if(self.selected) {
 			if(this.form) {
 				this.updateWidget({force: true});
 				this.form.destroy();
@@ -179,7 +185,7 @@ function cobler(options){
 		}
 	};
 
-	this.addTypeDisplay = function(object){
+	this.addTypeDisplay = function(object) {
 		if(this.options.types === 'all' || ($.inArray(object.category, this.options.types) > -1)){
 			$(Berry.render('cobler_widget_cobler', object )).appendTo('#cb-source');
 		}

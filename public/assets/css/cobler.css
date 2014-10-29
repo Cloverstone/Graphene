@@ -112,9 +112,12 @@ margin-bottom: 4px;
 [data-name="heading"] .texth2 input,
 [data-name="heading"] .texth2 input:focus{background: none;
 	font-size: 30px;
+	margin-top: 16px;
+	margin-bottom: 5px;
 }
 [data-name="heading"] .texth3 input,
 [data-name="heading"] .texth3 input:focus{background: none;
 	font-size: 24px;
+	margin-top: 16px;
+	margin-bottom: 6px;
 }
-

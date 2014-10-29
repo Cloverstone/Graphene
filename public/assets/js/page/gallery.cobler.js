@@ -1,7 +1,7 @@
 $(function(){
   cobler.register({
     type: 'gallery',
-    category: 'content',
+    category: 'none',
     icon: 'camera',
     display: 'Gallery',
     defaults: {

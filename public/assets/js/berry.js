@@ -495,7 +495,6 @@ Berry = function(options, obj) {
 		this.populate();
 	}
 
-
 	addActions(this.options.actions);
 	if(typeof this.renderer.initialize === 'function') {
 		this.renderer.initialize();
@@ -507,49 +506,49 @@ Berry = function(options, obj) {
 		});
 	}
 
-	// if(typeof Berry.instances[this.options.name] !== 'undefined') {
-	// 	Berry.instances[this.options.name].on('destroyed', $.proxy(function(){
-	// 		Berry.instances[this.options.name] = this;
-	// 	},this));
-	// 	Berry.instances[this.options.name].destroy();
-	// }else{
-		Berry.instances[this.options.name] = this;
+// if(typeof Berry.instances[this.options.name] !== 'undefined') {
+// 	Berry.instances[this.options.name].on('destroyed', $.proxy(function(){
+// 		Berry.instances[this.options.name] = this;
+// 	},this));
+// 	Berry.instances[this.options.name].destroy();
+// }else{
+	Berry.instances[this.options.name] = this;
 
-		this.on('dropped', function(info){
-			var instances = this.find(info.path);
-			var path = '';
-			for(var i in instances){
-				if(instances[i].id == info.id){
-					path = instances[i].getPath();
-					instances.splice(i, 1);
-					break;
+	this.on('dropped', function(info){
+		var instances = this.find(info.path);
+		var path = '';
+		for(var i in instances){
+			if(instances[i].id == info.id){
+				path = instances[i].getPath();
+				instances.splice(i, 1);
+				break;
+			}
+		}
+		var o = self.attributes;
+		var s = path;
+		s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+		s = s.replace(/^\./, '');           // strip a leading dot
+		var a = s.split('.');
+		while (a.length) {
+			var n = a.shift();
+			if (n in o) {
+				o = o[n];
+			}
+		}
+		if($.isArray(o)){
+			o.splice(i,1);
+		}
+		else{
+			delete o[i];
+			var temp = 0;
+			for(var j in o){
+				if(j >= i){
+					o[i++] = o[j];
+					delete o[j];
 				}
 			}
-			var o = self.attributes;
-			var s = path;
-			s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
-			s = s.replace(/^\./, '');           // strip a leading dot
-			var a = s.split('.');
-			while (a.length) {
-				var n = a.shift();
-				if (n in o) {
-					o = o[n];
-				}
-			}
-			if($.isArray(o)){
-				o.splice(i,1);
-			}
-			else{
-				delete o[i];
-				var temp = 0;
-				for(var j in o){
-					if(j >= i){
-						o[i++] = o[j];
-						delete o[j];
-					}
-				}
-			}
-		});
+		}
+	});
 };
 Berry.prototype.events = {initialize:[]};
 	//pub/sub service
