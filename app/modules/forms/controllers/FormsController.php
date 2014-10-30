@@ -123,10 +123,11 @@ class FormsController extends BaseController {
 
 
 
-  public function submit(){
+  public function submit($_id){
     $post_data = Input::all();
     $submission = new CustomFormSubmission();
     $submission->fill( $post_data );
+    $submission->form = $_id;
     // $CustomForm->slug = str_replace('/ ', '_', strtolower($CustomForm->title));
     // $CustomForm->site_id = Config::get('site')['_id'];
     $submission->save();
