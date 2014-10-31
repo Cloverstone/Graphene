@@ -10,20 +10,26 @@
 	Assets::add('jquery.mb.browser.min.js' , '/vendor/smartadmin/js/plugin/msie-fix/');
 	Assets::add('underscore-min.js' , '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/');
 	Assets::add('backbone-min.js' , '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/');
+	Assets::add('hogan-3.0.1.js' , 'http://twitter.github.com/hogan.js/builds/3.0.1/');
 	Assets::add('backbone.collectionView.js');
 	//Assets::add('localstorage.backbone.js');
 	Assets::add('mustache.js');
 	Assets::add('icanhaz.min.js');
 
 
-	Assets::add('berry/', '/views/');
-	Assets::add('berry.js');
-	Assets::add('berry/popins.berry.js');
-	Assets::add('', '/assets/js/berry/');
+	// Assets::add('berry/', '/views/');
+	// Assets::add('berry.js');
+	// Assets::add('berry/popins.berry.js');
+	// Assets::add('', '/assets/js/berry/');
+	Assets::add('full.berry.min.js');
+	Assets::add('bootstrap.full.berry.js');
 
-	Assets::add('cobler.css');
-	Assets::add('cobler/', '/views/');
-	Assets::add('cobler.js');
+	Assets::add('cobler.min.js');
+	Assets::add('bootstrap.cobler.js');
+	Assets::add('form.cobler.js');
+	// Assets::add('cobler.css');
+	// Assets::add('cobler/', '/views/');
+	// Assets::add('cobler.js');
 	Assets::add('dropzone.js');
 	Assets::add('dropzone.css');
 	Assets::add('showdown.js');
