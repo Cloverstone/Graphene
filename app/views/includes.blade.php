@@ -27,7 +27,7 @@
 	Assets::add('cobler.min.js');
 	Assets::add('bootstrap.cobler.js');
 	Assets::add('form.cobler.js');
-	// Assets::add('cobler.css');
+	Assets::add('cobler.css');
 	// Assets::add('cobler/', '/views/');
 	// Assets::add('cobler.js');
 	Assets::add('dropzone.js');
