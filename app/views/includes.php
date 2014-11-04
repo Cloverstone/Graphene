@@ -11,6 +11,8 @@
 	Assets::add('underscore-min.js' , '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/');
 	Assets::add('backbone-min.js' , '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/');
 	Assets::add('hogan-3.0.1.js' , 'http://twitter.github.com/hogan.js/builds/3.0.1/');
+	//Assets::add('moment.min.js' , '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/');
+	Assets::add('jquery.timeago.min.js' , '//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.1/');
 
 
 	Assets::add('cobler.css');

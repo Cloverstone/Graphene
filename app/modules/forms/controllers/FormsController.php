@@ -122,6 +122,19 @@ class FormsController extends BaseController {
   }
 
 
+  public function form($name){
+
+      $page = CustomForm::bySite()->where("slug","=",$name)->first();
+      $page->content = View::make('forms::form_render', $page);
+      $menu = View::make('themes/'.Config::get('site')['theme'].'/menu' , array("items" => Navigation::bySite()->select('text', 'target')->get())); 
+
+      //$menuArray = Config::get('menu');
+      //$menu = View::make('menu' , array("items" => Config::get('menu')));
+      $side_menu = View::make('side_menu' , array("items" => Config::get('side_menu')));
+//      $content = View::make('content' , $page);
+      return View::make('themes/'.Config::get('site')['theme'].'/home' , array("menu" => $menu, "side_menu" => $side_menu, "page"=>$page));
+ 
+  }
 
   public function submit($_id){
     $post_data = Input::all();

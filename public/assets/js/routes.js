@@ -50,7 +50,20 @@ routes = {
 			myForm.fetch( { success: function() {
 				contentManager.show( new editFormView( { model: myForm } ) );
 			}, error: function(e){
-
+				alert('fail');
+			}});
+		},
+		resource: 'forms'
+	},	
+	'records': {
+		init: function(id) {
+			myRecords = new recordsCollection([],{'_id': id});
+			myForm = new formModel({ '_id' : id });
+			myRecords.fetch( { success: function() {
+				myForm.fetch({success: function() {
+				contentManager.show( new recordsView( {model: myForm, collection: myRecords } ) );
+				}});
+			}, error: function(e){
 				alert('fail');
 			}});
 		},

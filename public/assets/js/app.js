@@ -247,10 +247,10 @@ $(function() {
 
 });
 
-// function message(options) {
-// 	console.log(options.content);
-// 	$.gritter.add($.extend({timeout: 3000, color: '#5F895F'},options));
-// }
+function message(options) {
+	console.log(options.content);
+	$.gritter.add($.extend({timeout: 3000, color: '#5F895F'},options));
+}
 
 
 // modal = function(options){

@@ -25,7 +25,8 @@ formView = Backbone.View.extend({
 	events: {
 		'click .btn-danger': 'destroy',
 		'click .btn-success': 'view',
-		'click': 'edit'
+		'click .btn-default': 'edit',
+		'click': 'records'
 	},
 	edit: function(e) {
 		e.stopPropagation();
@@ -33,7 +34,11 @@ formView = Backbone.View.extend({
 	},
 	view: function(e) {
 		e.stopPropagation();
-		window.location.href = '/forms/'+this.model.attributes.slug;
+		window.location.href = '/form/'+this.model.attributes.slug;
+	},
+	records: function(e) {
+		e.stopPropagation();
+		myrouter.navigate('#/records/'+this.model.id, {trigger: true});
 	},
 	template: 'form_view',
 	target: '#page-list',
@@ -85,3 +90,62 @@ formsCollection = Backbone.Collection.extend({
 		model: formModel,
 		url: '/forms',
 });
+
+
+
+
+// recordView = Backbone.View.extend({
+// 	events: {
+// 		'click': 'edit'
+// 	},
+// 	template: 'main_template',
+// 	target: '#record-list',
+// 	initialize: function() {
+// 		this.autoElement();
+// 	}
+// });
+
+recordsView = Backbone.View.extend({
+	events:{
+		'click': 'view',
+		'click #title': 'modify'
+	},
+	template: 'records_view' ,	
+	onShow: function() {
+		var head_template = '';
+		var main_template = '';
+		_.each(this.model.attributes.json, function(element){
+			head_template += '<th>'+element.label+'</th>';
+			main_template += '<td>{{attributes.'+element.name+'}}&nbsp;</td>';
+		});
+		$('#record-list').append( Hogan.compile('<thead><tr>' + head_template + '<th>Submitted</th></tr></thead>{{#models}}<tr>' + main_template + '<td><time class="timeago" datetime="{{attributes.updated_at}}Z">{{attributes.updated_at}}</time></td></tr>{{/models}}').render(this.collection));
+		$("#record-list time.timeago").timeago();
+	},
+	render: function() {
+		this.setElement(render(this.template, this.model.attributes ));
+	},
+});
+
+recordModel = Backbone.Model.extend({
+	schema: {
+		Title: {}
+	},
+	idAttribute: '_id',
+	urlRoot: '/records'
+});
+recordsCollection = Backbone.Collection.extend({
+	initialize: function(models, options) {
+    this._id = options._id;
+  },
+  url: function() {
+    return '/records/?form_id=' + this._id;
+  },
+//		localStorage: new Backbone.LocalStorage('forms'), // Unique name within your app.
+	model: recordModel,
+	// url: '/records',
+});
+
+
+
+
+

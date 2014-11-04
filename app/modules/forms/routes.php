@@ -1,3 +1,4 @@
 <?php
 Route::resource('/forms', 'FormsController');
-Route::get('/submit/{_id}', 'FormsController@submit');
+Route::resource('/records', 'RecordsController');
+Route::get('/form/{name}', 'FormsController@form');

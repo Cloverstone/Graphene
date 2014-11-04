@@ -1050,6 +1050,7 @@ return array(
     'Psr\\Log\\LoggerInterface' => $vendorDir . '/psr/log/Psr/Log/LoggerInterface.php',
     'Psr\\Log\\LoggerTrait' => $vendorDir . '/psr/log/Psr/Log/LoggerTrait.php',
     'Psr\\Log\\NullLogger' => $vendorDir . '/psr/log/Psr/Log/NullLogger.php',
+    'RecordsController' => $baseDir . '/app/modules/forms/controllers/RecordsController.php',
     'RestaurantCategory' => $baseDir . '/app/modules/restaurant/models/RestaurantCategory.php',
     'RestaurantCategoryController' => $baseDir . '/app/modules/restaurant/controllers/RestaurantCategoryController.php',
     'RestaurantMenuItem' => $baseDir . '/app/modules/restaurant/models/RestaurantMenuItem.php',
