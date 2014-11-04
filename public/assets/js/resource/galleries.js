@@ -63,7 +63,7 @@ galleryView = Backbone.View.extend({
 		// }});
 	},
 	initialize: function() {
-		this.setElement(ich[this.template](this.model.attributes));
+		this.setElement(render(this.template, this.model.attributes));
 	},
 });
 

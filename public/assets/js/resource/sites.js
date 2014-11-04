@@ -18,7 +18,7 @@ sitesView = Backbone.View.extend({
 		});
 	},
 	render: function() {
-		this.setElement(ich[this.template]( mySites ));
+		this.setElement(render(this.template, mySites ));
 	},
 });
 siteView = Backbone.View.extend({

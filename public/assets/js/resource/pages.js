@@ -18,7 +18,7 @@ pagesView = Backbone.View.extend({
 		});
 	},
 	render: function() {
-		this.setElement(ich[this.template]( myPages ));
+		this.setElement(render(this.template, myPages ));
 	},
 });
 pageView = Backbone.View.extend({
@@ -58,7 +58,7 @@ editPageView = Backbone.View.extend({
 		cb.load(this.model.attributes.json);
 	},
 	render: function() {
-		this.setElement(ich[this.template](this.model.attributes));
+		this.setElement(render(this.template, this.model.attributes));
 	},
 	save:function() {
 		message({title: 'Success!', text: 'Successfully updated the form', timeout: 3000, color: "#5F895F", icon: "fa fa-user" });

@@ -42,7 +42,7 @@ navigationView = Backbone.View.extend({
 		});
 	},
 	render: function() {
-		this.setElement(ich[this.template](myNavigation));
+		this.setElement(render(this.template, myNavigation));
 	},
 });
 

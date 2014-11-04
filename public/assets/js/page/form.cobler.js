@@ -23,7 +23,7 @@ $(function(){
             this.attributes.content = response.content;
             //$.extendthis.attributes
             this.attributes.title = response.title;
-            this.attributes.content =  Mustache.render('<form id="{{_id}}" action="/submit/{{_id}}"><legend>{{title}}</legend>{{{content}}}<button type="submit" class="btn btn-default">Submit</button></form>', this.attributes);
+            this.attributes.content =  Hogan.compile('<form id="{{_id}}" action="/submit/{{_id}}"><legend>{{title}}</legend>{{{content}}}<button type="submit" class="btn btn-default">Submit</button></form>').render(this.attributes, templates);
 
 //return Mustache.render('<form name="input" action="/custom_form/submit/{{_id}}" method="get">{{{content}}}<button type="submit" class="btn btn-default">Submit</button></form>', this.attributes);
  

@@ -13,9 +13,9 @@ $(function(){
     },
     createEL: function() {
       if(cb.options.editable){
-        this.$el = $(Berry.render('cobler_element_cobler', this));
+        this.$el = $(Berry.render('cobler_element', this));
       }else{
-        this.$el = $(Berry.render('cobler_element_cobler_noedit', this));
+        this.$el = $(Berry.render('cobler_element_noedit', this));
       }
       this.$el.find('.cobler-li-content').append(this.toHTML());
       return this.$el;

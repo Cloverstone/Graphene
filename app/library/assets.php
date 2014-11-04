@@ -53,7 +53,7 @@ class Assets
     }
   }
 
-  public static function templates($template='template' ){
+  public static function templates($template='view' ){
     $return_val = null;
     foreach (static::$template_files as $filename=>$path_info){
       $path = app_path().$path_info["location"].$filename;

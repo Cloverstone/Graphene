@@ -43,7 +43,7 @@ restaurantCategoriesView = Backbone.View.extend({
 		});
 	},
 	render: function() {
-		this.setElement(ich[this.template](myRestaurantCategories));
+		this.setElement(render(this.template, myRestaurantCategories));
 	},
 });
 
@@ -131,7 +131,7 @@ restaurantMenuItemsView = Backbone.View.extend({
 		});
 	},
 	initialize: function() {
-		this.setElement(ich[this.template]( myRestaurantMenuItems ));
+		this.setElement(render(this.template, myRestaurantMenuItems ));
 	},
 });
 restaurantMenuItemView = Backbone.View.extend({

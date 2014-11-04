@@ -47,7 +47,7 @@ imagesView = Backbone.View.extend({
 		// }});
 	},
 	render: function() {
-		this.setElement(ich[this.template](myImages));
+		this.setElement(render(this.template, myImages));
 
 	},
 });

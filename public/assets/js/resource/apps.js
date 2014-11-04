@@ -75,7 +75,7 @@ appView = Backbone.View.extend({
 	// 	return this;
 	// },
 	initialize: function() {
-		this.setElement(ich[this.template]( this.model.attributes ));
+		this.setElement(render(this.template, this.model.attributes));
 		$('#form-list').append(this.$el);
 	}
 });
@@ -83,7 +83,7 @@ appView = Backbone.View.extend({
 appsView = Backbone.View.extend({
 	template: "apps" ,
 	render: function() {
-		this.$el.append(ich[this.template]( ) );
+		this.$el.append(render(this.template) );
 		return this;
 	},
 	onShow:function() {
@@ -128,7 +128,7 @@ appMainView = Backbone.View.extend({
 	},
 	template: "apps_main" ,
 	initialize: function() {
-		this.setElement(ich[this.template]( this.model.attributes ));
+		this.setElement(render(this.template, this.model.attributes));
 		//$('#form-list').append(this.$el);
 	}
 });
@@ -144,7 +144,7 @@ appSideView = Backbone.View.extend({
 		});
 	},
 	initialize: function() {
-		this.setElement(ich[this.template]( this.model.attributes ));
+		this.setElement(render(this.template, this.model.attributes));
 		//$('#form-list').append(this.$el);
 	}
 });
@@ -184,7 +184,7 @@ editFormView = Backbone.View.extend({
 		cb.load(JSON.parse(this.model.attributes.content));
 	},
 	render: function(){
-		this.setElement(ich[this.template](this.model.attributes));
+		this.setElement(render(this.template, this.model.attributes));
 	},
 	initialize: function(){
 		//this.setElement(ich[this.template]( this.model.attributes ));
@@ -236,7 +236,7 @@ editTemplateView = Backbone.View.extend({
     //editor.setValue(this.model.attributes.content); // or session.setValue
 	},
 	render: function() {
-		this.setElement(ich[this.template](this.model.attributes));
+		this.setElement(render(this.template, this.model.attributes));
 	},
 	initialize: function() {
 		//this.setElement(ich[this.template]( this.model.attributes ));

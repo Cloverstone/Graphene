@@ -1,22 +1,21 @@
 alert = function(value){ console.log(value); };
+function render(template, data){
+	if(typeof templates[template] === 'undefined'){
+		if($('#'+template).length > 0){
+			templates[template] =  Hogan.compile($('#'+template).html());
+			$('#'+template).remove();
+		}else{
+			return Hogan.compile(template).render(data, templates);	
+		}
+	}
+  return templates[template].render(data, templates);
+}
 
-$(function() {
-    $('#nav-accordion').dcAccordion({
-        eventType: 'click',
-         autoClose: true,
-        saveState: true,
-        disableLink: true,
-        speed: 'slow',
-        showCount: false,
-        autoExpand: true,
-//        cookie: 'dcjq-accordion-1',
-        classExpand: 'dcjq-current-parent'
-    });
-    $("html").niceScroll({styler:"fb",cursorcolor:"#e8403f", cursorwidth: '6', cursorborderradius: '10px', background: '#404040', spacebarenabled:false,  cursorborder: '', zindex: '1000'});
-		$("#sidebar").niceScroll({styler:"fb",cursorcolor:"#e8403f", cursorwidth: '3', cursorborderradius: '10px', background: '#404040', spacebarenabled:false, cursorborder: ''});
-
-});
 $(function(){
+	$('[type="text/html"]').each(function(){
+		templates[$(this).attr('id')] =  Hogan.compile($(this).html());
+		$(this).remove();
+	});
 	contentManager = new RegionManager();
 	sidebarManager = new RegionManager({el: '#sidebar'});
 
@@ -54,10 +53,15 @@ $(function(){
 		},
 		default: function(path1, optional, path2, optional2) {
 			var path = path1 || 'Apps';
+
+			if(typeof routes[path] === 'undefined'){
+				path = 'undefined';
+			}
 			if(typeof routes[path] !== 'undefined'){
 				$('.logo i').addClass('fa-spin');
 				$.ajax({
 					url: '/assets/js/resource/' + routes[path].resource + '.js',
+					//url: '/modules/assets/js/' + routes[path].resource + '/resource.js',
 					dataType: "script",
 					cache: true,
 					success: function(){
@@ -81,6 +85,24 @@ $(function(){
 						}
 					},error:function(){
 						alert('Bad Response');
+						$('.logo i').removeClass('fa-spin');
+						if(typeof routes[path] !== 'undefined'){
+							var activeLink = $("[href='#/" + path + "']");
+							var parent = activeLink.closest(".menu-item").find(".menu-item-parent").html();
+							$('.sidebar-menu a').removeClass('active');
+							activeLink.closest('a').addClass('active');
+							if(typeof parent == 'undefined'){parent = path;}
+							//$('.breadcrumb').html('<li><a href="#">I<i style="color: #83C018" class="fa fa-power-off"></i>N Dashboard</a></li><li>' + parent + '</li>').show();
+							if(parent != path){
+								$('.breadcrumb').append('<li>' + path + '</li>');
+							}
+							if(typeof path2 !== 'undefined' && path2 !== null){
+								routes[path + '_' + path2].init(optional,optional2);
+							}else{
+								routes[path].init(optional);
+							}
+
+						}
 					}
 				});
 			}else{alert('Route Not Supported');}
@@ -174,18 +196,24 @@ $(function() {
 	};
 	Backbone.View.prototype.autoElement = function(options) {
 		options = $.extend({append: true}, options);
-		this.setElement(ich[this.template]( this.model.attributes ));
-		this.model.on('sync', $.proxy(function() {
-			var temp = this.$el;
-			this.setElement(ich[this.template]( this.model.attributes ));
-			temp.replaceWith(this.$el);
+		this.setElement(render(this.template, this.model.attributes ));
+		this.model.on('change', $.proxy(function() {
+			// var temp = this.$el;
+			// this.setElement(ich[this.template]( this.model.attributes ));
+			// temp.replaceWith(this.$el);
+			this.$el.replaceWith(this.setElement(render(this.template, this.model.attributes )).$el);
+			this.render()
 			this.editing = false;
 		}), this);
 		if(options.append !== false){
 			$(this.target).append(this.$el);
 		}
 	};
-	Backbone.Model.prototype.idAttribute = "_id";
+	Backbone.View.prototype.autoAdd = function(options) {
+		this.collection.on('add', $.proxy(function(){ contentManager.show( new this.constructor({ collection: this.collection }))}, this) );
+	};
+
+	// Backbone.Model.prototype.idAttribute = "_id";
 
 	Backbone.ItemView = Backbone.View.extend({
 		initialize: function() {
@@ -213,52 +241,41 @@ $(function() {
 		},
 		initialize: function() {
 			this.fields = this.fields || this.modelView.prototype.fields;
-			this.setElement(ich[this.template]( this.collection ));
+			this.setElement(render(this.template, this.collection ));
 		},
 	});
 
-
-
-
 });
 
-function message(options) {
-	console.log(options.content);
-	$.gritter.add($.extend({timeout: 3000, color: '#5F895F'},options));
-}
-function rating(selector, rated, container) {
-	container.find(selector + ' .fa-star:lt('+parseInt(rated ,10)+')').removeClass('fa-star-o');
-	var temp = Math.floor(rated);
-	if(rated - temp >= 0.5){
-		container.find(selector + ' .fa-star:nth-child(' + (temp + 1) + ')').addClass('fa-star-half-full');
-	}
-}
-
-modal = function(options){
-	$('#myModal').remove();
-	this.ref = $(ich.modal(options));
-
-	options.legendTarget = this.ref.find('.modal-title');
-	options.actionTarget = this.ref.find('.modal-footer');
-
-	$(this.ref).appendTo('body');
-
-	if(options.content) {
-		$('.modal-body').html(options.content);
-		options.legendTarget.html(options.legend);
-	}else{
-		options.autoDestroy = true;
-		var myform = this.ref.find('.modal-body').berry(options).on('destroy', $.proxy(function(){
-			this.ref.modal('hide');
-		},this));
-	}
-	this.ref.modal();
-	this.ref.on('shown.bs.modal', $.proxy(function () {
-		this.$el.find('.form-control:first').focus();
-	},myform));
-};
+// function message(options) {
+// 	console.log(options.content);
+// 	$.gritter.add($.extend({timeout: 3000, color: '#5F895F'},options));
+// }
 
 
+// modal = function(options){
+// 	$('#myModal').remove();
+// 	this.ref = $(render('modal', options));
+
+// 	options.legendTarget = this.ref.find('.modal-title');
+// 	options.actionTarget = this.ref.find('.modal-footer');
+
+// 	$(this.ref).appendTo('body');
+
+// 	if(options.content) {
+// 		$('.modal-body').html(options.content);
+// 		options.legendTarget.html(options.legend);
+// 	}else{
+// 		options.autoDestroy = true;
+// 		var myform = this.ref.find('.modal-body').berry(options).on('destroy', $.proxy(function(){
+// 			this.ref.modal('hide');
+// 		},this));
+// 	}
+// 	this.ref.modal();
+// 	this.ref.on('shown.bs.modal', $.proxy(function () {
+// 		this.$el.find('.form-control:first').focus();
+// 	},myform));
+// };
 
 (function($) {
   $.score = function(base, abbr, offset) {
@@ -343,37 +360,3 @@ $('body').on('keyup','[name=filter]',function(event){
 	filterTimer=setTimeout(processFilter,300);
 	}
 });
-
-function containsKey( list , keys ){
-	var returnArray = {};
-	for (var key in keys) {
-		if(typeof list[keys[key]] !== 'undefined'){
-			returnArray[keys[key]] = list[keys[key]];
-		}
-	}
-	return returnArray;
-}
-
-function createChildren(original,name,source){
-	for(var j in original){
-		original[j][name] = {};
-		temp = source.get(original[j][name + '_id']);
-		if(typeof temp != 'undefined'){
-			original[j][name] = temp.attributes;
-		}
-	}
-}
-
-Date.createFromMysql = function(mysql_string){
-   if(typeof mysql_string === 'string')
-   {
-      var t = mysql_string.split(/[- :]/);
-
-      //when t[3], t[4] and t[5] are missing they defaults to zero
-      return new Date(t[0], t[1] - 1, t[2], t[3] || 0, t[4] || 0, t[5] || 0);
-   }
-
-   return null;
-};
-
-//mymodal = new modal({body:"newbod",'footer':'<button type="button" class="btn btn-primary" id="save">Save changes</button>'});

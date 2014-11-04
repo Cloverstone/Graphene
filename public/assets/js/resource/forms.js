@@ -18,7 +18,7 @@ formsView = Backbone.View.extend({
 		});
 	},
 	render: function() {
-		this.setElement(ich[this.template]( myForms ));
+		this.setElement(render(this.template, myForms ));
 	},
 });
 formView = Backbone.View.extend({
@@ -57,7 +57,7 @@ editFormView = Backbone.View.extend({
 		cb.load(this.model.attributes.json);
 	},
 	render: function() {
-		this.setElement(ich[this.template](this.model.attributes));
+		this.setElement(render(this.template, this.model.attributes));
 	},
 	save:function() {
 //		debugger;

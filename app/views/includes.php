@@ -11,36 +11,16 @@
 	Assets::add('underscore-min.js' , '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/');
 	Assets::add('backbone-min.js' , '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/');
 	Assets::add('hogan-3.0.1.js' , 'http://twitter.github.com/hogan.js/builds/3.0.1/');
-	Assets::add('backbone.collectionView.js');
-	//Assets::add('localstorage.backbone.js');
-	Assets::add('mustache.js');
-	Assets::add('icanhaz.min.js');
 
 
-	// Assets::add('berry/', '/views/');
-	// Assets::add('berry.js');
-	// Assets::add('berry/popins.berry.js');
-	// Assets::add('', '/assets/js/berry/');
-	Assets::add('full.berry.min.js');
-	Assets::add('bootstrap.full.berry.js');
-
-	Assets::add('cobler.min.js');
-	Assets::add('bootstrap.cobler.js');
-	Assets::add('form.cobler.js');
 	Assets::add('cobler.css');
-	// Assets::add('cobler/', '/views/');
-	// Assets::add('cobler.js');
-	Assets::add('dropzone.js');
 	Assets::add('dropzone.css');
-	Assets::add('showdown.js');
-	//Assets::add('', '/assets/js/cobler/');
+	Assets::add('full.berry.min.js');
+	Assets::add('', '/assets/js/vendor/');
 	Assets::add('', '/assets/js/page/');
 	Assets::add('menu.css');
-	Assets::add('', '/assets/js/cobler/');
 
 
-	// Assets::add('forms/show.mustache');
-	// Assets::add('forms/edit.mustache');
 	Assets::add('', '/modules/pages/views/');
 	Assets::add('', '/modules/forms/views/');
 	Assets::add('', '/modules/images/views/');
@@ -50,30 +30,8 @@
 	Assets::add('apps/', '/views/');
 	Assets::add('sites/', '/views/');
 
-	Assets::add('modal.mustache');
+	//Assets::add('modal.mustache');
 
-	Assets::add('jquery.tagsinput.js');
-	Assets::add('jquery.autosize.min.js');
-		Assets::add('jHtmlArea-0.7.5.js','/vendor/jHtmlArea-0.7.5.ExamplePlusSource/scripts/');
-		Assets::add('jHtmlArea.css','/vendor/jHtmlArea-0.7.5.ExamplePlusSource/style/');
-
-	// Assets::add('cobler/text_input.cobler.js');
-	// Assets::add('cobler/select_input.cobler.js');
-	// Assets::add('cobler/conditional.cobler.js');
-	// Assets::add('cobler/init.cobler.mustache');
-	// Assets::add('cobler/widget.cobler.mustache');
-	// Assets::add('cobler/controls.cobler.mustache');
-	// Assets::add('cobler/element.cobler.mustache');
-	// Assets::add('cobler/conditional.cobler.mustache');
-	Assets::add('apps.mustache');
-	Assets::add('app.mustache');
-
-	Assets::add('quicksilver.js');
-	Assets::add('jquery.mjs.nestedSortable.js');
-
-	//Assets::add('formula.js');
-
-	Assets::add('math.min.js');
 
 	Assets::add('jquery.nicescroll.js' , '/vendor/flatlab/js/');
 	Assets::add('jquery.dcjqaccordion.2.7.js' , '/vendor/flatlab/js/');
@@ -92,18 +50,9 @@
 	Assets::add('routes.js');
 
 	Assets::add('pen.css');
-	Assets::add('pen.js');
-	Assets::add('markdown.js');
-	// Assets::add('grande.js');
-	// Assets::add('menu.js');
-
-
-	Assets::add('tinymce.min.js','/assets/js/tinymce/');
 	Assets::add('app.js');
-	Assets::add('common.js');
-	Assets::add('jquery.oembed.all.js');
 	Assets::add('jquery.oembed.all.css');
 	Assets::add('style.css');
 	Assets::add('gallery.css' , '/vendor/flatlab/css/');
-	//Assets::add('restaruantCategories.js' , './resources/');
-//	Assets::add('resource/galleries.js');
+
+	//Assets::add('pages.js', '/assets/js/resource/');
