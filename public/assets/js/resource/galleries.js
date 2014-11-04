@@ -15,7 +15,7 @@ galleriesView = Backbone.ListView.extend({
 		},
 		manage: function(e) {
 			e.stopPropagation();
-			myrouter.navigate('#/gallery/'+this.options.model.id, {trigger: true});
+			myrouter.navigate('#/gallery/'+this.model.id, {trigger: true});
 		}
 	}),
 });
@@ -48,7 +48,14 @@ galleryView = Backbone.View.extend({
 		// 	new imageView({'model': temp});
 		// }});
 
-		$().berry({fields:[{type: 'upload', label: false, path: '/gallery_items?gallery_id='+this.model.id, name: 'image_filename'}]})
+		//$().berry({fields:[{type: 'upload', label: false, path: '/gallery_items?gallery_id='+this.model.id, name: 'image_filename'}]})
+
+		this.form({legend: 'Add Image(s)', fields:[{type: 'upload', label: false, path: '/gallery_items?gallery_id='+this.model.id, name: 'image_filename'}]}).on('change', $.proxy(function(){
+			this.collection.add(new this.collection.model(this.berry.fields.image_filename.value));
+			this.berry.ref.modal('hide');
+		}, this)).on('destroyed', $.proxy(function(){
+			contentManager.show( new this.constructor({ collection: this.collection, model: myGallery }));
+		}, this));
 	},
 	template: 'gallery_content' ,
 	onShow: function() {
@@ -98,7 +105,10 @@ galleryModel = Backbone.Model.extend({
 	schema:{
 		Name: {required: true}
 	},
-	urlRoot: '/galleries'
+	urlRoot: '/galleries',
+	initialize: function(){
+		this.bind('change', function(){ this.save(); });
+	}
 });
 
 galleryCollection = Backbone.Collection.extend({

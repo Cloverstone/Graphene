@@ -1,8 +1,10 @@
 <li id="list_{{_id}}" data-id="{{_id}}" class="list-group-item">
 	<div class="sortableContent">
 		<i class="fa fa-bars parent-hover" style="position:absolute;top:8px;left:10px;font-size:30px"></i>
-		<span class="pull-right btn btn-danger parent-hover" style="margin-right:5px"><i class="fa fa-times"></i></span>
-		<span class="pull-right btn btn-white parent-hover" style="margin-right:5px"><i class="fa fa-pencil"></i></span>
+		<div class="btn-group pull-right parent-hover actions" style="margin-right:5px">
+			<span class="btn btn-danger fa fa-times"></span>
+			<span class="btn btn-white fa fa-pencil"></span>
+		</div>
 		<span class="text" style="line-height:32px;margin-left:5px">{{text}}</span>
 	</div>
 	<ul></ul>

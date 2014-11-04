@@ -25,7 +25,7 @@ imagesView = Backbone.View.extend({
 		// $().berry({fields:[{type: 'upload', label: false, path: '/images', name: 'image_filename'}]})
 
 		this.form({legend: 'Add Image(s)', fields:[{type: 'upload', label: false, path: '/images', name: 'image_filename'}]}).on('change', $.proxy(function(){
-			this.collection.add(new this.collection.model({name: this.berry.fields.image_filename.value}));
+			this.collection.add(new this.collection.model(this.berry.fields.image_filename.value));
 			this.berry.ref.modal('hide');
 		}, this)).on('destroyed', $.proxy(function(){
 			contentManager.show( new this.constructor({ collection: this.collection }));
@@ -78,7 +78,6 @@ imageModel = Backbone.Model.extend({
 		Name: {},
 		Tags: {type: 'tags'}
 	},
-	idAttribute: '_id',
 	urlRoot: '/images'
 });
 imageCollection = Backbone.Collection.extend({

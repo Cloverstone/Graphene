@@ -128,7 +128,7 @@ routes = {
 			myGallery = new galleryModel({ '_id' : id });
 			myGalleryItems.fetch({data: {gallery_id: id}, success: function() {
 				myGallery.fetch({success: function() {
-					contentManager.show( new galleryView({model: myGallery}));
+					contentManager.show( new galleryView({collection: myGalleryItems, model: myGallery}));
 				}});
 			}});
 		},

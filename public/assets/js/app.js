@@ -213,7 +213,7 @@ $(function() {
 		this.collection.on('add', $.proxy(function(){ contentManager.show( new this.constructor({ collection: this.collection }))}, this) );
 	};
 
-	// Backbone.Model.prototype.idAttribute = "_id";
+	Backbone.Model.prototype.idAttribute = "_id";
 
 	Backbone.ItemView = Backbone.View.extend({
 		initialize: function() {
@@ -253,29 +253,29 @@ function message(options) {
 }
 
 
-// modal = function(options){
-// 	$('#myModal').remove();
-// 	this.ref = $(render('modal', options));
+modal = function(options){
+	$('#myModal').remove();
+	this.ref = $(render('modal', options));
 
-// 	options.legendTarget = this.ref.find('.modal-title');
-// 	options.actionTarget = this.ref.find('.modal-footer');
+	options.legendTarget = this.ref.find('.modal-title');
+	options.actionTarget = this.ref.find('.modal-footer');
 
-// 	$(this.ref).appendTo('body');
+	$(this.ref).appendTo('body');
 
-// 	if(options.content) {
-// 		$('.modal-body').html(options.content);
-// 		options.legendTarget.html(options.legend);
-// 	}else{
-// 		options.autoDestroy = true;
-// 		var myform = this.ref.find('.modal-body').berry(options).on('destroy', $.proxy(function(){
-// 			this.ref.modal('hide');
-// 		},this));
-// 	}
-// 	this.ref.modal();
-// 	this.ref.on('shown.bs.modal', $.proxy(function () {
-// 		this.$el.find('.form-control:first').focus();
-// 	},myform));
-// };
+	if(options.content) {
+		$('.modal-body').html(options.content);
+		options.legendTarget.html(options.legend);
+	}else{
+		options.autoDestroy = true;
+		var myform = this.ref.find('.modal-body').berry(options).on('destroy', $.proxy(function(){
+			this.ref.modal('hide');
+		},this));
+	}
+	this.ref.modal();
+	this.ref.on('shown.bs.modal', $.proxy(function () {
+		this.$el.find('.form-control:first').focus();
+	},myform));
+};
 
 (function($) {
   $.score = function(base, abbr, offset) {
