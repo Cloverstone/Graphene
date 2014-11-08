@@ -79,7 +79,7 @@ class NavigationsController extends BaseController {
     foreach($temp['results'] as $key=>$result){
        $navigation = Navigation::bySite()->find($key);
       // $navigation->modified_by = Auth::user()->id;
-       $navigation->order = $result['order'];
+       $navigation->order = (int) $result['order'];
        $navigation->parent_id =$result['parent_id'];
        $navigation->save();
     }
