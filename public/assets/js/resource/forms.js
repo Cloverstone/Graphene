@@ -68,6 +68,8 @@ editFormView = Backbone.View.extend({
 //		debugger;
 		message({title: 'Success!', text: 'Successfully updated the form', timeout: 3000, color: "#5F895F", icon: "fa fa-user" });
 	//		this.model.set({content: JSON.stringify(cb.toJSON())});
+		cb.deselect();
+		cobler.changed = false;
 		this.model.save({json: cb.toJSON(), content: cb.toHTML()}, {patch:true});
 	},
 	remove: function() {
