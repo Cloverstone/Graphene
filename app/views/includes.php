@@ -18,9 +18,12 @@
 	Assets::add('cobler.css');
 	Assets::add('dropzone.css');
 	Assets::add('full.berry.min.js');
+
+	// Assets::add('', '/assets/js/berry/');
+
+	
 	Assets::add('', '/assets/js/vendor/');
-	Assets::add('', '/assets/js/page/');
-	Assets::add('menu.css');
+	Assets::add('', '/assets/js/page/');	Assets::add('menu.css');
 
 
 	Assets::add('', '/modules/pages/views/');
