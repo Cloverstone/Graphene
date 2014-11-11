@@ -88,23 +88,8 @@ class PagesController extends BaseController {
    */
   public function home()
   {
-    if (Request::wantsJson()) {
-      $page = Page::find('0');
-      return $page;
-    } else {
-      $page = Page::bySite()->where("slug", "=", Config::get('site')['homepage'])->first();
-      $menu = View::make('themes/'.Config::get('site')['theme'].'/menu' , array("items" => Navigation::bySite()->select('text', 'target')->get())); 
-      //$page = array('title'=>'none', 'slug'=>'', 'content'=>'');
-      //$menuArray = Config::get('menu');
-      //$menu = View::make('menu' , array("items" => Config::get('menu')));
-      $side_menu = View::make('side_menu' , array("items" => Config::get('side_menu')));
-//      $content = View::make('content' , $page);
-      Tracking::pageView('pages', $id);
-
-
-      return View::make('themes/'.Config::get('site')['theme'].'/home' , array("menu" => $menu, "side_menu" => $side_menu, "page"=>$page));
-
-    }
+      $request = Request::create(Config::get('site')['homepage'], 'GET', array());
+      return Route::dispatch($request);
   }
  // public function display($args){
       /**
