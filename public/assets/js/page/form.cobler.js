@@ -12,6 +12,7 @@ $(function(){
       //{label: false, name: 'text', fieldset: 'selected .cobler-li-content',},
       {type: 'select', label: 'Form', name: 'form', reference: '_id', choices:'/forms'},
     ],
+    template: Hogan.compile('<form id="{{_id}}" method="post" action="/records"><legend>{{title}}</legend>{{{content}}}<input type="hidden" name="form" value="{{_id}}"/><button type="submit" class="btn btn-default">Submit</button></form>'),
     //template: '<form name="input" action="/custom_form/submit/{{_id}}" method="get">{{{content}}}<button type="submit" class="btn btn-default">Submit</button></form>',
     toHTML:  function(){
 
@@ -23,7 +24,7 @@ $(function(){
             this.attributes.content = response.content;
             //$.extendthis.attributes
             this.attributes.title = response.title;
-            this.attributes.content =  Hogan.compile('<form id="{{_id}}" method="post" action="/records"><legend>{{title}}</legend>{{{content}}}<input type="hidden" name="form" value="{{_id}}"/><button type="submit" class="btn btn-default">Submit</button></form>').render(this.attributes, templates);
+            this.attributes.content =  this.template.render(this.attributes, templates);
 
 //return Mustache.render('<form name="input" action="/custom_form/submit/{{_id}}" method="get">{{{content}}}<button type="submit" class="btn btn-default">Submit</button></form>', this.attributes);
  

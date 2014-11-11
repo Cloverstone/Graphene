@@ -5,7 +5,8 @@ $(function(){
     icon: 'image',
     display: 'Image',
     defaults: {
-      image: ''
+      image: '',
+      width: 12
     },
     fields: [
       {type: 'custom_select', label: 'Image', name: 'image',reference:'name', fieldset: 'alt-form', choices: '/images?list'},
@@ -22,9 +23,10 @@ $(function(){
         this.owner.remove(this.id);
       }
     },
-    template: '<div style=""><center>{{#image}}<img alt="{{alt}}" src="/imgs/{{image}}" />{{/image}}{{^image}}<div class="alert alert-info">Please choose an image</div>{{/image}}</center></div>',
+    template: Hogan.compile('<div style="margin: 0 -15px;"><center>{{#image}}<img style="max-width:100%" alt="{{alt}}" src="/imgs/{{image}}" />{{/image}}{{^image}}<div class="alert alert-info">Please choose an image</div>{{/image}}</center></div>'),
     toHTML:  function() {
-      return Mustache.render(this.template, this.attributes);
+      return this.template.render(this.attributes, templates);
+      //return Mustache.render(this.template, this.attributes);
     }
   });
 });
