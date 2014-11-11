@@ -39,6 +39,7 @@ if($odd){
       $side_menu = View::make('side_menu' , array("items" => Config::get('side_menu')));
 //      $content = View::make('content' , $page);
       //dreturn $menu;
+      Tracking::pageView('restaurant', 'menu');
       return View::make('themes/'.Config::get('site')['theme'].'/home' , array("menu" => $menu, "side_menu" => $side_menu, "page"=>$page));
 
 });

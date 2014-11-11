@@ -99,6 +99,9 @@ class PagesController extends BaseController {
       //$menu = View::make('menu' , array("items" => Config::get('menu')));
       $side_menu = View::make('side_menu' , array("items" => Config::get('side_menu')));
 //      $content = View::make('content' , $page);
+      Tracking::pageView('pages', $id);
+
+
       return View::make('themes/'.Config::get('site')['theme'].'/home' , array("menu" => $menu, "side_menu" => $side_menu, "page"=>$page));
 
     }
@@ -118,6 +121,7 @@ class PagesController extends BaseController {
       $page = Page::find($id);
        return $page;
     } else {
+
 //      $page = Page::where("slug", "=", $id)->first();
       $page = Page::bySite()->where("slug", "=", $id)->first();
       $menu = View::make('themes/'.Config::get('site')['theme'].'/menu' , array("items" => Navigation::bySite()->select('text', 'target')->get())); 
@@ -126,6 +130,8 @@ class PagesController extends BaseController {
       //$menu = View::make('menu' , array("items" => Config::get('menu')));
       $side_menu = View::make('side_menu' , array("items" => Config::get('side_menu')));
 //      $content = View::make('content' , $page);
+      Tracking::pageView('pages', $page->_id);
+
       return View::make('themes/'.Config::get('site')['theme'].'/home' , array("menu" => $menu, "side_menu" => $side_menu, "page"=>$page));
     }
 
