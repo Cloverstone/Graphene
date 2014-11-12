@@ -62,6 +62,34 @@ Route::filter('auth.basic', function()
 	return Auth::basic();
 });
 
+Route::filter('adminAuth', function()
+{
+	//POST Data
+	if (!Auth::check()) {
+		if (Input::has('email') && Input::has('password') ){
+			$credentials = array(
+				'email' => Input::get('email'),
+				'password' => Input::get('password')
+			);
+		 	if(Auth::attempt( $credentials )) {
+				Session::regenerate();
+				//Login successfull :)
+				// $agent = new Agent_signin();
+				// $agent->signin();
+			}
+		}else{
+			return Redirect::guest('login');
+		}	
+	} else {
+		// $agent = Agent_signin::find(Session::getId());
+		// if($agent) {
+		// 	$agent->touch();
+		// }
+	}
+});
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Guest Filter

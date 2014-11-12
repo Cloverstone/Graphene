@@ -1676,6 +1676,7 @@ return array(
     'TestCase' => $baseDir . '/app/tests/TestCase.php',
     'Tracking' => $baseDir . '/app/library/tracking.php',
     'User' => $baseDir . '/app/models/User.php',
+    'UserTableSeeder' => $baseDir . '/app/database/seeds/UserTableSeeder.php',
     'UuidModel' => $baseDir . '/app/models/UuidModel.php',
     'Way\\Generators\\Commands\\ControllerGeneratorCommand' => $vendorDir . '/way/generators/src/Way/Generators/Commands/ControllerGeneratorCommand.php',
     'Way\\Generators\\Commands\\GeneratorCommand' => $vendorDir . '/way/generators/src/Way/Generators/Commands/GeneratorCommand.php',
