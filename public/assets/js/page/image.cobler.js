@@ -23,7 +23,7 @@ $(function(){
         this.owner.remove(this.id);
       }
     },
-    template: Hogan.compile('<div style="margin: 0 -15px;"><center>{{#image}}<img style="max-width:100%" alt="{{alt}}" src="/imgs/{{image}}" />{{/image}}{{^image}}<div class="alert alert-info">Please choose an image</div>{{/image}}</center></div>'),
+    template: Hogan.compile('<div style="margin: 0 -15px;"><center>{{#image}}<img style="max-width:100%" alt="{{alt}}" src="/uploads/imgs/{{image}}" />{{/image}}{{^image}}<div class="alert alert-info">Please choose an image</div>{{/image}}</center></div>'),
     toHTML:  function() {
       return this.template.render(this.attributes, templates);
       //return Mustache.render(this.template, this.attributes);

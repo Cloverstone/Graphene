@@ -30,7 +30,7 @@ class ImagesController extends BaseController {
     //$image->fill($post_data);
     if(Input::hasFile('image_filename')) {
       $file = Input::file('image_filename');
-      $file->move(public_path() . '/imgs/',$file->getClientOriginalName());
+      $file->move(public_path() . '/uploads/imgs/',$file->getClientOriginalName());
       $image->name = $file->getClientOriginalName();
       $image->ext = $file->getClientOriginalExtension();
     }
@@ -65,7 +65,7 @@ class ImagesController extends BaseController {
     $image->fill($post_data);
     if(Input::hasFile('image_filename')) {
       $file = Input::file('image_filename');
-      $file->move(public_path() . '/imgs/',$file->getClientOriginalName());
+      $file->move(public_path() . '/uploads/imgs/',$file->getClientOriginalName());
       $image->image_filename = $file->getClientOriginalName();
 
     }

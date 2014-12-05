@@ -59,7 +59,7 @@ imageView = Backbone.View.extend({
 		'click': 'preview',
 	},
 	preview: function() {
-		new modal({legend: this.model.attributes.name, content:'<div style="text-align:center"><img style="max-width:100%" src="/imgs/'+this.model.attributes.name+'"/></div>'});
+		new modal({legend: this.model.attributes.name, content:'<div style="text-align:center"><img style="max-width:100%" src="/uploads/imgs/'+this.model.attributes.name+'"/></div>'});
 	},
 	editImage: function(e) {
 		e.stopPropagation();
