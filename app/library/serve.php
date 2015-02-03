@@ -2,15 +2,15 @@
 
 class Serve
 {
-  function getType($filename){
+  private static function getType($filename){
     $filename = basename($filename);
     $filename = explode('.', $filename);
     $filename = $filename[count($filename)-1];
-    return self::find_type(strtolower($filename));
+    return static::find_type(strtolower($filename));
   }
 
-  function find_type($ext){
-    $mimetypes = self::mime_array();
+  private static function find_type($ext){
+    $mimetypes = static::mime_array();
     if (isset($mimetypes[$ext])) {
       return $mimetypes[$ext];
     }
@@ -19,7 +19,7 @@ class Serve
     }
   }
 
-  function mime_array(){
+  private static function mime_array(){
     return array(
          "ico" => "image/x-icon",
          "ez" => "application/andrew-inset",
@@ -160,19 +160,19 @@ class Serve
     );
   }
 
-  function doc_root_path_exists($file_path){
+  private static function doc_root_path_exists($file_path){
     if ($file_path != "/" && is_file('doc_root/'.$file_path) && is_readable('doc_root/'.$file_path)){
       return true;
     }
     return false;
   }
 
-  function show_doc_root($file_path){
+  private static function show_doc_root($file_path){
     $file_path = 'doc_root/'.$file_path;
     if(pathinfo($file_path, PATHINFO_EXTENSION) == 'php') {
       include_once($file_path);
     }else{
-      self::dump_file($file_path, 0);
+      static::dump_file($file_path, 0);
     }
     exit();
   }
@@ -185,7 +185,7 @@ class Serve
     } else {
       $file_path_array = explode('/',$file_path);
       header('Content-Description: File Transfer');
-      header('Content-Type: '.self::gettype($file_path));
+      header('Content-Type: '.static::gettype($file_path));
       header('Content-Length: ' . filesize($file_path));
       if ($file_name != NULL){
        	header('Content-Disposition: inline; filename=' . $file_name);
@@ -201,33 +201,37 @@ class Serve
 
   }
 
-  public function raw(){
-    global $PWD;
-    $filename = end($PWD);
-    $file = explode('.',$filename);
-    $ext = end($file);
-    unset($PWD[count($PWD)-1]);
-    $file_path = '../public/'.implode('/',$PWD).'/'.$filename;
-//echo $file_path;
-    if($PWD[0] == 'assets'){
-     $temp_path =  '../themes/'.session::$site["theme"].'/'.implode('/',$PWD).'/'.$filename;
-     if(file_exists($temp_path)){$file_path = $temp_path;}
-    }
-    if ($ext == 'php'){
-//      $file_path = '../public/'.implode('/',$PWD);
-//      chdir($file_path);
-      $_SERVER['SCRIPT_FILENAME'] = $file_path;
-      include($file_path);
-    } else {
-      if ($ext == 'js') {
-        self::dump_file($file_path,0);
-      }
-      else {
-	// Cache for 12 hours
-        self::dump_file($file_path,43200);
-      }
-    }
+  public static function file( $file_path ){
+    static::dump_file($file_path, 0);
   }
+
+//   public function raw(){
+//     global $PWD;
+//     $filename = end($PWD);
+//     $file = explode('.',$filename);
+//     $ext = end($file);
+//     unset($PWD[count($PWD)-1]);
+//     $file_path = '../public/'.implode('/',$PWD).'/'.$filename;
+
+//     if($PWD[0] == 'assets'){
+//      $temp_path =  '../themes/'.session::$site["theme"].'/'.implode('/',$PWD).'/'.$filename;
+//      if(file_exists($temp_path)){$file_path = $temp_path;}
+//     }
+//     if ($ext == 'php'){
+// //      $file_path = '../public/'.implode('/',$PWD);
+// //      chdir($file_path);
+//       $_SERVER['SCRIPT_FILENAME'] = $file_path;
+//       include($file_path);
+//     } else {
+//       if ($ext == 'js') {
+//         static::dump_file($file_path,0);
+//       }
+//       else {
+// 	// Cache for 12 hours
+//         static::dump_file($file_path,43200);
+//       }
+//     }
+//   }
 
 }
 ?>

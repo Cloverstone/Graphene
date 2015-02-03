@@ -49,4 +49,5 @@ Route::get('/', 'PagesController@home');
 
 
 
+
 Route::get('/{id}', 'PagesController@show');

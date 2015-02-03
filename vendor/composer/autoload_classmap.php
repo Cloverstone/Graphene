@@ -1066,6 +1066,7 @@ return array(
     'Rhumsaa\\Uuid\\Exception\\UnsatisfiedDependencyException' => $vendorDir . '/rhumsaa/uuid/src/Rhumsaa/Uuid/Exception/UnsatisfiedDependencyException.php',
     'Rhumsaa\\Uuid\\Exception\\UnsupportedOperationException' => $vendorDir . '/rhumsaa/uuid/src/Rhumsaa/Uuid/Exception/UnsupportedOperationException.php',
     'Rhumsaa\\Uuid\\Uuid' => $vendorDir . '/rhumsaa/uuid/src/Rhumsaa/Uuid/Uuid.php',
+    'Serve' => $baseDir . '/app/library/serve.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
     'Site' => $baseDir . '/app/models/siteModel.php',
     'SitesController' => $baseDir . '/app/controllers/SitesController.php',

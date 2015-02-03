@@ -1,6 +1,5 @@
 <?php
 
-
 class ImagesController extends BaseController {
      /**
    * Display the specified resource.
@@ -30,7 +29,8 @@ class ImagesController extends BaseController {
     //$image->fill($post_data);
     if(Input::hasFile('image_filename')) {
       $file = Input::file('image_filename');
-      $file->move(public_path() . '/uploads/imgs/',$file->getClientOriginalName());
+      //$file->move(public_path() . '/uploads/imgs/',$file->getClientOriginalName());
+      $file->move(base_path().'/protected/'.Config::get('site')['_id'].'/img/' ,$file->getClientOriginalName());
       $image->name = $file->getClientOriginalName();
       $image->ext = $file->getClientOriginalExtension();
     }
