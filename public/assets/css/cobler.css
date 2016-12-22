@@ -1,6 +1,5 @@
-#cb-starter{border: dashed 2px #ddd; line-height: 80px; padding: 0 20px; border-radius: 10px; color:#666; position: absolute; top: 10px; left: 10px; right: 10px; font-weight: bold; text-align: right;}
-/*#cb-source, #cb-content, aside{list-style-type: none; margin: 0; padding: 0;-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none; user-select: none;}
-*/#cobler-sidebar{overflow: visible;}
+/*#cb-starter{border: dashed 2px #ddd; line-height: 80px; padding: 0 20px; border-radius: 10px; color:#666; position: absolute; top: 10px; left: 10px; right: 10px; font-weight: bold; text-align: right;}
+#cobler-sidebar{overflow: visible;}
 #cb-container {overflow: hidden}
 #cb-content .cb-placeholder, #cb-content > li { margin: 0; padding: 0; position: relative}
 #cb-source .cb-placeholder {display: none !important; background:#fff;}
@@ -102,8 +101,7 @@ font-size: 36px;
 padding:0;
 margin-top: 14px;
 margin-bottom: 4px;
-/*font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-*/}
+}
 
 [data-name="heading"] .form-group {
  margin-bottom: 0;
@@ -121,3 +119,22 @@ margin-bottom: 4px;
 	margin-top: 16px;
 	margin-bottom: 6px;
 }
+
+*/
+
+
+.cobler_container{list-style:none;/*padding-left:0;*/}
+.cobler_container > li > .parent-hover{z-index: 10;opacity:.6;position:absolute;top:5px;right:5px;}
+.cobler_container > li{position: relative;display: block;overflow:hidden;}
+.cobler_container > li:hover{outline:dashed 1px #ccc;z-index: 1}
+.cobler_container > li.sortable-chosen {outline:none;outline:dashed 1px #222;}
+.cobler_container > li.sortable-ghost {opacity: 1;border:solid 0px #ccc;}
+.cobler_container > li.sortable-ghost .parent-hover{display:none !important;}
+.cobler_select.cobler_container > li:before{content:'';z-index: 10; position: absolute; top: 0; bottom: 0; left: 0; right: 0;}
+.cobler_select.cobler_container > li.widget_active{outline: dashed 1px #222;z-index: 2;background:#FFFFF8;}
+.cobler_select.cobler_container > li.sortable-ghost:before{background:#fff;}
+
+
+.cobler_container > li.widget_active{outline: dashed 1px #999;z-index: 2;background:#FFFFF8;}
+
+

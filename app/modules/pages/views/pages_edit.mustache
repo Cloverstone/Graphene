@@ -1,7 +1,38 @@
 <div>
-	<div id="alt-sidebar"></div>
+	<div class="source view view_source" id="alt-sidebar" style="">
+							<div><a class="btn btn-info fa fa-list reset-form-view hidden" style="position: absolute;right: 5px;z-index: 10;top: 5px;" href="javascript:cb.deactivate();"></a></div>
+<!-- 							<ul id="sortableList" class="list-group ">
+								<li class="list-group-item" data-type="Image">Image</li>
+								<li class="list-group-item" data-type="Content">Content</li>
+								<li class="list-group-item list-group-item-success" data-type="checkbox">Checkbox</li>
+							</ul>			 -->
+
+							<ul id="cb-source" class="ui-sortable list-group" style="display: block;">
+<li data-name="Content" class="list-group-item" style="position: relative;" data-type="Content">
+	<i class="fa fa-align-justify icon-muted"></i> Editable Content
+</li><li data-name="form" class="list-group-item" style="position: relative;" data-type="Form">
+	<i class="fa fa-check-square-o icon-muted"></i> Form
+<!-- </li><li data-name="gallery" class="list-group-item" style="position: relative;">
+	<i class="fa fa-camera icon-muted"></i>&nbsp;Gallery
+</li> -->
+<li data-name="heading" class="list-group-item" style="position: relative;" data-type="Heading">
+	<i class="fa fa-bold icon-muted"></i> Heading
+</li><li data-name="image" class="list-group-item" style="position: relative;" data-type="Image">
+	<i class="fa fa-image icon-muted"></i> Image
+</li>
+<!-- <li data-name="video" class="list-group-item" style="position: relative;">
+	<i class="fa fa-video-camera icon-muted"></i>&nbsp;Video
+</li> -->
+</ul>
+
+
+						<div id="form" class="form-cobler" style="overflow:hidden;height:100%"></div>				
+	</div>
+
 	<div class="cobler-header"><span style="color:#fff;font-size:larger" id="title">{{title}}{{^title}}New Page{{/title}}</span><span class="pull-right"> <a class="btn btn-white" id="save-page" href="javascript:void(0)">Save</a><a class="btn btn-danger" href="javascript:cb.clear()">Clear</a></span></div>
 	<div style="margin-right:300px;position:relative" name="page-content">
 		<div id="itemcontainer"></div>
+
+			<div id="editor" class="form-horizontal widget_container cobler_select"style="min-height:500px;position:relative;margin-top:20px;margin-left:30px"></div>
 	</div>
 </div>

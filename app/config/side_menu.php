@@ -20,18 +20,18 @@ return array(
 				'icon' 	=> 'navicon',
 				'url'		=> 'navigation' 
 	),
-	array('name' 	=> 'Menu Categories',
-				'icon' 	=> 'folder',
-				'url'		=> 'categories' 
-	),
-	array('name' 	=> 'Menu Items',
-				'icon' 	=> 'cutlery',
-				'url'		=> 'menu_items' 
-	),
-	array('name' 	=> 'Galleries',
-				'icon' 	=> 'camera',
-				'url'		=> 'galleries' 
-	),
+	// array('name' 	=> 'Menu Categories',
+	// 			'icon' 	=> 'folder',
+	// 			'url'		=> 'categories' 
+	// ),
+	// array('name' 	=> 'Menu Items',
+	// 			'icon' 	=> 'cutlery',
+	// 			'url'		=> 'menu_items' 
+	// ),
+	// array('name' 	=> 'Galleries',
+	// 			'icon' 	=> 'camera',
+	// 			'url'		=> 'galleries' 
+	// ),
 	array('name' 	=> 'Sites',
 				'icon' 	=> 'globe',
 				'url'		=> 'sites' 

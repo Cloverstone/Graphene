@@ -54,8 +54,40 @@ editPageView = Backbone.View.extend({
 	},
 	template: 'pages_edit' ,
 	onShow: function() {
-		cb = new cobler({target: '#itemcontainer', types: ['content']});
-		cb.load(this.model.attributes.json);
+		// cb = new cobler({target: '#itemcontainer', types: ['content']});
+		// cb.load(this.model.attributes.json);
+
+			templates['itemContainer'] = Hogan.compile('<div class="cobler-li-content"></div><div class="btn-group parent-hover"><span class="remove-item btn btn-danger fa fa-trash-o" data-title="Remove"></span><span class="duplicate-item btn btn-default fa fa-copy" data-title="Duplicate"></span></div>')
+
+
+			var items = {};
+			if(typeof this.model.attributes.fields !== 'undefined' &&  this.model.attributes.fields !== null){
+				items = JSON.parse(this.model.attributes.fields) || {};
+			}
+
+
+      cb = new Cobler({formTarget:$('#form'), disabled: false, targets: [document.getElementById('editor')],items:[items]})
+      list = document.getElementById('cb-source');
+      cb.addSource(list);
+      cb.on('activate', function(){
+        if(list.className.indexOf('hidden') == -1){
+          list.className += ' hidden';
+        }
+        $('#form, .reset-form-view').removeClass('hidden');
+      })
+      cb.on('deactivate', function(){
+        list.className = list.className.replace('hidden', '');
+        $('#form, .reset-form-view').addClass('hidden');
+      })
+      cb.on('remove', function(){
+      	cb.deactivate();
+      })
+
+      document.getElementById('cb-source').addEventListener('click', function(e) {
+        cb.collections[0].addItem(e.target.dataset.type);
+      })
+
+
 	},
 	render: function() {
 		this.setElement(render(this.template, this.model.attributes));

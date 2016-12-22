@@ -143,11 +143,11 @@ RegionManager = function(defaults) {
 
 	this.show = function (view) {
 		var r = true;
-		if(cobler.changed){
-			r = confirm("Any changes that you made will be lost.\n\nAre you sure you want to leave this page?");
-		}
+		// if(cobler.changed){
+		// 	r = confirm("Any changes that you made will be lost.\n\nAre you sure you want to leave this page?");
+		// }
 		if (r == true) {
-			cobler.changed = false;
+			// cobler.changed = false;
 			closeView(this.currentView);
 			if(view){
 				this.currentView = view;

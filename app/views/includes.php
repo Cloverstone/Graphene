@@ -15,16 +15,26 @@
 	Assets::add('jquery.timeago.min.js' , '//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.1/');
 
 
-	Assets::add('cobler.css');
+	// Assets::add('cobler.css');
 	Assets::add('dropzone.css');
 	Assets::add('full.berry.min.js');
+	Assets::add('sortable.js');
+	Assets::add('cob.js');
+	Assets::add('form.cob.js');
+	Assets::add('content.cob.js');
+
+	// Assets::add('widget_templates.js');
+	Assets::add('tinymce.min.js','//cdn.tinymce.com/4/');
+
 
 	// Assets::add('', '/assets/js/berry/');
 
 	
 	Assets::add('', '/assets/js/vendor/');
-	Assets::add('', '/assets/js/page/');	Assets::add('menu.css');
+	//Assets::add('', '/assets/js/page/');	
+	Assets::add('menu.css');
 
+	Assets::add('widgets/', '/views/');
 
 	Assets::add('', '/modules/pages/views/');
 	Assets::add('', '/modules/forms/views/');
