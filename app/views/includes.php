@@ -15,7 +15,7 @@
 	Assets::add('jquery.timeago.min.js' , '//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.1/');
 
 
-	// Assets::add('cobler.css');
+	Assets::add('cobler.css');
 	Assets::add('dropzone.css');
 	Assets::add('full.berry.min.js');
 	Assets::add('sortable.js');

@@ -25,7 +25,41 @@ berryEditor = function(container){
 	}
 }
 
+berryEditor2 = function(container){
+	return function(){
+		var formConfig = $.extend(true, {}, {
+			// renderer: 'tabs', 
+			attributes: this.get(), 
+			fields: this.fields,
+			autoDestroy: true
+		}, this.formOptions || {});
+
+		var opts = container.owner.options;
+		var events = 'save';
+		if(typeof opts.formTarget !== 'undefined' && opts.formTarget.length){
+			formConfig.actions = false;
+			// events = 'change';
+		}	
+		// debugger;
+		var myBerry = new Berry(formConfig, this.formTarget || $(container.elementOf(this)).find('.content'));
+		myBerry.on(events, function(){
+		 	container.update(myBerry.toJSON(), this);
+		 	// container.deactivate();
+		 	// myBerry.trigger('saved');
+		}, this);
+		myBerry.on('cancel',function(){
+		 	container.update(this.get(), this)
+		 	container.deactivate();
+		}, this)
+		return myBerry;
+	}
+}
+
+
 Cobler.types.Content = function(container){
+	function deactivate(){
+		debugger;
+	}
 	function render() {
 		return templates['widgets_content'].render(get(), templates);
 	}
@@ -55,9 +89,10 @@ Cobler.types.Content = function(container){
 		fields: fields,
 		render: render,
 		toJSON: toJSON,
-		edit: berryEditor.call(this, container),
+		edit: berryEditor2.call(this, container),
 		get: get,
 		set: set,
+		deactivate: deactivate,
 		container: container,
 		initialize: function(el) {
 			this.$el = $(el);

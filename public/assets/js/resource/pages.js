@@ -57,7 +57,7 @@ editPageView = Backbone.View.extend({
 		// cb = new cobler({target: '#itemcontainer', types: ['content']});
 		// cb.load(this.model.attributes.json);
 
-			templates['itemContainer'] = Hogan.compile('<div class="cobler-li-content"></div><div class="btn-group parent-hover"><span class="remove-item btn btn-danger fa fa-trash-o" data-title="Remove"></span><span class="duplicate-item btn btn-default fa fa-copy" data-title="Duplicate"></span></div>')
+			templates['itemContainer'] = Hogan.compile('<div class="cobler-li-content"></div><div class="btn-group parent-hover actions"><span class="remove-item btn btn-danger fa fa-trash-o" data-title="Remove"></span><span class="duplicate-item btn btn-default fa fa-copy" data-title="Duplicate"></span></div>')
 
 
 			var items = {};

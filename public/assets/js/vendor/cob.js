@@ -120,8 +120,10 @@ function Cobler(options) {
 			}else if(classList.indexOf('edit-item') >= 0){
 				activate(referenceNode);
 			}else if(e.target.tagName === 'LI' && target.className.indexOf('cobler_select') != -1) {
-				deactivate();
-				activate(e.target);
+				if(classList.indexOf('widget_active') < 0){
+					deactivate();
+					activate(e.target);
+				}
 			}
 		}
 		function activate(targetEL) {

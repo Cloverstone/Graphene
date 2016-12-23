@@ -121,7 +121,23 @@ margin-bottom: 4px;
 }
 
 */
+.slice .actions{z-index: 10; position: absolute; top:0;right:0;}
 
+/*
+.cobler_container{list-style:none;}
+.cobler_container > li > .parent-hover{z-index: 10;opacity:.6;position:absolute;top:5px;right:5px;}
+.cobler_container > li{position: relative;display: block;}
+.cobler_container > li:hover{outline:dashed 1px #ccc;z-index: 1}
+.cobler_container > li.sortable-chosen {outline:none;outline:dashed 1px #222;}
+.cobler_container > li.sortable-ghost {opacity: 1;border:solid 0px #ccc;}
+.cobler_container > li.sortable-ghost .parent-hover{display:none !important;}
+.cobler_select.cobler_container > li:before{content:'';z-index: 10; position: absolute; top: 0; bottom: 0; left: 0; right: 0;}
+.cobler_select.cobler_container > li.widget_active{outline: dashed 1px #222;z-index: 2;}
+.cobler_select.cobler_container > li.sortable-ghost:before{background:#fff;}
+
+
+.cobler_container > li.widget_active{outline: dashed 1px #999;z-index: 2;}
+*/
 
 .cobler_container{list-style:none;/*padding-left:0;*/}
 .cobler_container > li > .parent-hover{z-index: 10;opacity:.6;position:absolute;top:5px;right:5px;}
@@ -131,10 +147,10 @@ margin-bottom: 4px;
 .cobler_container > li.sortable-ghost {opacity: 1;border:solid 0px #ccc;}
 .cobler_container > li.sortable-ghost .parent-hover{display:none !important;}
 .cobler_select.cobler_container > li:before{content:'';z-index: 10; position: absolute; top: 0; bottom: 0; left: 0; right: 0;}
-.cobler_select.cobler_container > li.widget_active{outline: dashed 1px #222;z-index: 2;background:#FFFFF8;}
+.cobler_select.cobler_container > li.widget_active{outline: dashed 1px #222;z-index: 2;/*background:#FFFFF8;*/}
 .cobler_select.cobler_container > li.sortable-ghost:before{background:#fff;}
 
+.cobler_select.cobler_container > li.widget_active:before{display:none};
 
-.cobler_container > li.widget_active{outline: dashed 1px #999;z-index: 2;background:#FFFFF8;}
-
+.cobler_container > li.widget_active{outline: dashed 1px #999;z-index: 2;/*background:#FFFFF8;*/}
 
