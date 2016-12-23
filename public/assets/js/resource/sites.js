@@ -47,7 +47,7 @@ siteModel = Backbone.Model.extend({
 	schema: {
 		Domain: {},
 		Redirect: {type: 'custom_radio', value: 'No', options: ['Yes', 'No'], useName: true},
-		Theme: {type: 'select', show: {'not_matches': {name: 'redirect', value: 'Yes'}}, choices: [{name: 'default', value: 'adams_site'},{name: 'Kampai', value: 'kampai2'}]},
+		Theme: {type: 'select', show: {'not_matches': {name: 'redirect', value: 'Yes'}}, choices: [{name: 'default', value: 'adams_site'},{name: 'Enrich', value: 'enrich'}]},
 		Target: {show: {'matches': {name: 'redirect', value: 'Yes'}}},
 		Homepage: {show: {'not_matches': {name: 'redirect', value: 'Yes'}}},
 		Modules: {type: 'tags', show: {'not_matches': {name: 'redirect', value: 'Yes'}}}

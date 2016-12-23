@@ -120,8 +120,10 @@ function Cobler(options) {
 			}else if(classList.indexOf('edit-item') >= 0){
 				activate(referenceNode);
 			}else if(e.target.tagName === 'LI' && target.className.indexOf('cobler_select') != -1) {
-				if(classList.indexOf('widget_active') < 0){
+				if(classList.indexOf(cob.options.active) < 0){
+					// debugger;
 					deactivate();
+					cob.publish('deactivate')
 					activate(e.target);
 				}
 			}
@@ -196,7 +198,7 @@ function Cobler(options) {
 		function toHTML() {
 			var temp = '';
 			for(var i in items){
-				temp += Cobler.types[items[i].widgetType].render(items[i]);
+				temp += items[i].render();//Cobler.types[items[i].toJSON({editor:true}).widgetType].render(items[i].toJSON({editor:true}));
 			}
 			return temp;
 		}

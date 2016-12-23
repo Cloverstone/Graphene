@@ -1,0 +1,22 @@
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right" id="main-menu">
+          <!--li data-action="_edit" class="pull-right"><a><i class="icon-white icon-pencil"></i> Edit</a></li-->
+
+  <?foreach ($items as $doc) {
+      if($doc['children']){?>
+            <li class="dropdown">
+              <a id="<?=str_replace(' ','_',strtolower($doc['title']))?>"  href="<?=$doc['link']?>" class="dropdown-toggle" data-toggle="dropdown"><?=$doc['title']?></a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="<?=str_replace(' ','_',strtolower($doc['title']))?>">
+  <?foreach ($doc['children'] as $child) {
+        ?><li><a tab-index="-1" id="<?=str_replace(' ','_',strtolower($child['title']))?>" href="<?=$child['link']?>"><?=$child['title']?></a></li><?
+  }?>
+
+              </ul>
+            </li>
+
+      <?}else{
+        ?><li><a id="<?=str_replace(' ','_',strtolower($doc['title']))?>" href="<?=$doc['link']?>"><?=$doc['title']?></a></li><?
+      }
+  }?>
+            </ul>
+          </div>

@@ -93,6 +93,7 @@ li >div.width4_5{width: 100% !important;}
 	float: left;
 	width: 100px;
 }
+*/
 [data-name="heading"] input,
 [data-name="heading"] input:focus{background: none;
 border: none;
@@ -120,7 +121,7 @@ margin-bottom: 4px;
 	margin-bottom: 6px;
 }
 
-*/
+
 .slice .actions{z-index: 10; position: absolute; top:0;right:0;}
 
 /*
@@ -154,3 +155,8 @@ margin-bottom: 4px;
 
 .cobler_container > li.widget_active{outline: dashed 1px #999;z-index: 2;/*background:#FFFFF8;*/}
 
+
+.content .berry-actions{display: none}
+.slice .form-group{margin-bottom:0px;}
+
+.mce-content-body{padding:0 !important; background:none !important; border:none !important;}

@@ -6,6 +6,7 @@ berryEditor = function(container){
 			fields: this.fields,
 			autoDestroy: true,
 			inline:true,
+			name:'berryeditor'
 			// legend: 'Edit '+ this.get()['widgetType']
 		}
 		var opts = container.owner.options;
@@ -31,20 +32,25 @@ berryEditor2 = function(container){
 			// renderer: 'tabs', 
 			attributes: this.get(), 
 			fields: this.fields,
-			autoDestroy: true
+			autoDestroy: true,
+			name:'content'
 		}, this.formOptions || {});
 
 		var opts = container.owner.options;
-		var events = 'save';
+		var events = 'change';
 		if(typeof opts.formTarget !== 'undefined' && opts.formTarget.length){
 			formConfig.actions = false;
 			// events = 'change';
 		}	
 		// debugger;
 		var myBerry = new Berry(formConfig, this.formTarget || $(container.elementOf(this)).find('.content'));
-		myBerry.on(events, function(){
+		myBerry.on('deactivate', function(){
 		 	container.update(myBerry.toJSON(), this);
-		 	// container.deactivate();
+		 	container.deactivate();
+		 	// myBerry.trigger('saved');
+		}, this);
+		myBerry.on('change:level', function(){
+		 	this.set(myBerry.toJSON());
 		 	// myBerry.trigger('saved');
 		}, this);
 		myBerry.on('cancel',function(){
@@ -99,9 +105,57 @@ Cobler.types.Content = function(container){
 		}
 	}
 }
+Cobler.types.Heading = function(container){
+	function deactivate(){
+		debugger;
+	}
+	function render() {
+		return templates['widgets_heading'].render(get(), templates);
+	}
+	function get() {
+		item.widgetType = 'Heading';
+		return item;
+	}
+	function set(newItem) {
+		$.extend(true, item, newItem);
+	}
+	function toJSON(opts){
+		if(opts.editor){return get();}
 
+		return {
+			guid: item.guid,
+			collapsed: item.collapsed
+		}
+	}
+	var item = {
+		title: 'This is the title',
+		text: 'Here is some text'
+	}
+	var fields = {
+		Text: {type: 'text', label: false},
+		Level: {type: 'custom_radio',label:false, force: true, fieldset: 'form-cobler', choices:[
+				{name: 'H1', value: 'h1'},
+				{name: 'H2', value: 'h2'},
+				{name: 'H3', value: 'h3'}
+			]}
+	}
+	return {
+		fields: fields,
+		render: render,
+		toJSON: toJSON,
+		edit: berryEditor2.call(this, container),
+		get: get,
+		set: set,
+		deactivate: deactivate,
+		container: container,
+		initialize: function(el) {
+			this.$el = $(el);
+		}
+	}
+}
 Cobler.types.Image = function(container){
 	function render() {
+		debugger;
 		// if(!item.container && this.container.owner.options.disabled){
 			return templates['widgets_image'].render(get(), templates);
 		// }else{
@@ -124,10 +178,12 @@ Cobler.types.Image = function(container){
 		$.extend(true, item, newItem);
 	}
 	var item = {
+		image:false
 	}
-	var fields = {
-		Image: {type: 'image_picker', choices: '/images?list', reference: 'name', value_key: 'name', path:'/assets/img/'},
-		Text: {label: 'Alt Text', required: true}
+	var fields = {		
+		Text: {label: 'Alt Text', required: true},
+
+		Image: {label:false, type: 'image_picker', choices: '/images?list', reference: 'name', value_key: 'name', path:'/assets/img/'}
 	}
 	return {
 		fields: fields,
